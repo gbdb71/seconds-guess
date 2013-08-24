@@ -20,6 +20,7 @@ h1, h2{
   position: relative;
   height: 100%;
   margin: auto;
+  width: 800px;
 }
 
 
@@ -32,11 +33,11 @@ h1, h2{
 }
 
 
-.main{
-  position: absolute;
-  width: 100%;
-  top:  0;
-  left: 0;
+.main,
+.level{
+  width: 800px;
+  height: 500px;
+  border: 1px solid #FFF;
 }
 
 

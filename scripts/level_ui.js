@@ -5,6 +5,7 @@ define(['underscore', 'jquery'], function (_, $) {
         this.eventBus   = eventBus;
         this.$container = container;
         
+        this.$infoBar         = this.$container.find('.infoBar');
         this.$content         = this.$container.find('.levelContent');
         this.$chronoContainer = this.$container.find('.chrono');
         this.$chronoMessage   = this.$chronoContainer.find('.message');
@@ -15,6 +16,8 @@ define(['underscore', 'jquery'], function (_, $) {
         this.initEvents();
         this.initBehaviours();
         
+        this.$infoBar.find('.message').html('My level');
+        
         this.resize();
         
         eventBus.emit('ui ready');
@@ -22,10 +25,6 @@ define(['underscore', 'jquery'], function (_, $) {
     
     
     LevelUI.prototype.resize = function () {
-        var h = $(window).height() - this.$content.offset().top;
-        this.$content.css({
-            height: h+'px'
-        });
     };
     
     

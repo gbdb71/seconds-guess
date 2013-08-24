@@ -6,14 +6,12 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
     addEventCapabilities(mainEventBus);
     
     var levels = {
-        'test': 'Test Level',
-        'test2': 'Super cool',
-        'test3': 'Super cool'
+        'test': 'Test Level'
     };
     
     
     game.init = function (container) {
-        ui.init(container, mainEventBus);
+        ui.init(container, mainEventBus, levels);
         mainEventBus.emit('show index', levels);
     };
     

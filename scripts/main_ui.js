@@ -1,30 +1,52 @@
-define(['underscore', 'jquery', 'level_ui'], function (_, $, LevelUI) {
+define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress, LevelUI) {
     
     var ui = {};
 
     var eventBus;
+
     
-    
-    ui.init = function (container, _eventBus) {
+    ui.init = function (container, _eventBus, levels) {
         eventBus = _eventBus;
         
         this.$container = container;
         container.html(_.template($('#mainTemplate').html()));
         
-        this.$infoBar        = container.find('.infoBar');
+        
+        
         this.$mainContainer  = container.find('.main');
-        this.$levelContainer = container.find('.level');
+        
+        this.loadLevelTemplates(levels);
         
         this.loadBehaviours();
+        
+        this.impress = impress('game');
+        this.impress.init();
+        this.goTo(0, 0);
+        
+        
         this.initEvents();
     };
     
     
+    ui.goTo = function (pageName, duration) {
+        setTimeout(function () {
+            ui.impress['goto'](pageName, duration);
+        }, 1);
+    };
+    
+    
+    ui.loadLevelTemplates = function (levels) {
+        _.each(levels, function (levelTitle, levelName) {
+            var elem = $('<div id="level-'+levelName+'" class="step level"></div>');
+            
+            elem.attr('data-x', 1000).attr('data-y', -1500);
+            ui.$container.append(elem);
+        });
+    };
+    
     
     ui.loadLevelIndex = function (levels) {
-        this.$infoBar.hide();
-        this.$levelContainer.hide();
-        this.$mainContainer.show().html(_.template($('#levelIndexTemplate').html()));
+        this.$mainContainer.html(_.template($('#levelIndexTemplate').html()));
         _.each(levels, function (levelTitle, levelName) {
             $('#levelIndex').append(_.template($('#levelInList').html(), {
                 title: levelTitle,
@@ -34,21 +56,28 @@ define(['underscore', 'jquery', 'level_ui'], function (_, $, LevelUI) {
     };
     
     
-    ui.loadLevel = function (levelName) {
+    ui.gotoLevel = function (levelName) {
         eventBus.emit('load level', levelName);
-        this.$mainContainer.hide();
-        this.$levelContainer.show().html(_.template($('#levelTemplate').html()));
+       
+        var levelElemID = 'level-'+levelName;
+        this.$levelContainer = $('#'+levelElemID);
+
+        this.$levelContainer.html(_.template($('#levelTemplate').html()));
+        
+        this.goTo(levelElemID);
+        
         var template = $('#'+levelName+'Template').html();
         if (template) {
             this.$levelContainer.find('.levelContent').html(_.template($('#'+levelName+'Template').html()));
         }
+        
     };
     
     
     ui.loadBehaviours = function () {
         
         this.$container.on('click', '.levelItem', function (e) {
-            ui.loadLevel($(this).data('level'));
+            ui.gotoLevel($(this).data('level'));
         });
         
         $('body').on('keydown', function (e) {
@@ -72,7 +101,6 @@ define(['underscore', 'jquery', 'level_ui'], function (_, $, LevelUI) {
 
         eventBus.on('level loaded', function (levelCode, levelEventBus) {
             ui.levelEventBus = levelEventBus;
-            ui.$infoBar.show().find('.message').html(levelCode);
             new LevelUI(ui.$levelContainer, levelEventBus);
         });
         

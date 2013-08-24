@@ -2,11 +2,15 @@ require.config({
     paths: {
         'jquery':       'ext_libs/jquery',
         'underscore':   'ext_libs/underscore',
+        'impress':      'ext_libs/impress',
         'Howler':       'ext_libs/howler'
     },
     shim: {
         'howddler': {
             exports: 'Howl'
+        },
+        'impress': {
+            exports: 'impress'
         },
         'jquery': {
             exports: '$'
