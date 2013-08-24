@@ -25,7 +25,7 @@
                 <div class="message"></div>
                 <div class="countdown"></div>
             </div>
-            <div class="levelStart"><div class="go">Go !</div></div>
+            <div class="levelStart"><div class="go button">Go !</div></div>
             <div class="levelEnd"></div>
         </script>
         
@@ -40,7 +40,7 @@
         </script>
         
         <script id="levelInList" type="text/template">
-            <li class="levelItem" data-level="<%= name %>"><%= title %></li>
+            <li class="levelItem button" data-level="<%= name %>"><%= level.title %><br>score : <%= level.meanScore %><br>time : <%= level.meanTime %></li>
         </script>
         
         <script id="levelEndTemplate" type="text/template">

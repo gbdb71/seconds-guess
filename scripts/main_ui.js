@@ -17,6 +17,10 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
         
         this.loadLevelTemplates(levels);
         
+        $('.step').css({
+            width:  ($(window).width()  * 0.9)+'px',
+            height: ($(window).height() * 0.9)+'px'
+        });
         this.loadBehaviours();
         
         this.impress = impress('game');
@@ -36,7 +40,7 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
     
     
     ui.loadLevelTemplates = function (levels) {
-        _.each(levels, function (levelTitle, levelName) {
+        _.each(levels, function (levelInfo, levelName) {
             var elem = $('<div id="level-'+levelName+'" class="step level"></div>');
             
             elem.attr('data-x', 1000).attr('data-y', -1500);
@@ -47,10 +51,10 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
     
     ui.loadLevelIndex = function (levels) {
         this.$mainContainer.html(_.template($('#levelIndexTemplate').html()));
-        _.each(levels, function (levelTitle, levelName) {
+        _.each(levels, function (levelInfo, levelName) {
             $('#levelIndex').append(_.template($('#levelInList').html(), {
-                title: levelTitle,
-                name:  levelName
+                level:  levelInfo,
+                name:   levelName
             }));
         });
         
