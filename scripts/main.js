@@ -1,13 +1,20 @@
 require.config({
+    paths: {
+        'jquery':       'ext_libs/jquery',
+        'underscore':   'ext_libs/underscore'
+    },
     shim: {
-        'ext_libs/jquery': {
+        'jquery': {
             exports: '$'
+        },
+        'underscore': {
+            exports: '_'
         }
     },
     urlArgs: "bust=" +  (new Date()).getTime()
 });
 
-require(['ext_libs/jquery', 'game'], function ($, game) {
+require(['jquery', 'game'], function ($, game) {
     
     $(function() {
         game.init($('#game'));
