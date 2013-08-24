@@ -18,13 +18,10 @@ require.config({
     urlArgs: "bust=" +  (new Date()).getTime()
 });
 
-require(['jquery', 'game', 'add_event_capabilities'], function ($, game, addEventCapabilities) {
-    
-    var eventBus = {};
-    addEventCapabilities(eventBus);
+require(['jquery', 'game'], function ($, game) {
     
     $(function() {
-        game.init($('#game'), eventBus);
+        game.init($('#game'));
     });
     
 });

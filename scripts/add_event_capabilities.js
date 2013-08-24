@@ -12,16 +12,16 @@ define(function() {
 	    };
 	    
 	    object.emit = function () {
-	        var args = Array.prototype.slice.call(arguments);
-	        var eventName = args.shift();
-	        var listeners = object.listenersFor[eventName] || [];
+	        var args        = Array.prototype.slice.call(arguments);
+	        var eventName   = args.shift();
+	        var listeners   = object.listenersFor[eventName] || [];
 	        
 	        for (var i=0; i < listeners.length; i++) {
 	            try {
 	                listeners[i].apply(object, args);
 	            } catch (e) {
-	               console.error('Error on event '+eventName);
-	               throw(e);
+	                console.error('Error on event '+eventName);
+	                throw(e);
 	            }
 	        };
 	    };

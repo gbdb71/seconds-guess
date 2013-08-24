@@ -13,8 +13,29 @@
     
     
     <div id="templates" style="display: none;">
+        <script id="mainTemplate" type="text/template">
+            <h1>10 seconds</h1>
+            <div id="infoBar"></div>
+            <div id="level"></div>
+            <div id="chrono"></div>
+        </script>
+        
         <script id="startPageTemplate" type="text/template">
-            <h1>Start</h1>
+            <h1 id="start">Start</h1>
+        </script>
+        
+        <script id="levelIndexTemplate" type="text/template">
+            <ul id="levelIndex">
+            </ul>
+        </script>
+        
+        <script id="levelInList" type="text/template">
+            <li class="levelItem" data-level="<%= name %>"><%= title %></li>
+        </script>
+        
+        <script id="testTemplate" type="text/template">
+            <h1>My Test Level</h1>
+            <button id="play">Hello</button>
         </script>
     </div>
     
