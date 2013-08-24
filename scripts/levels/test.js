@@ -2,6 +2,7 @@ define(['../level_capabilities', 'Howler'], function (addLevelCapabilities, howl
     
     var Level = function (eventBus) {
         addLevelCapabilities(this, eventBus);
+        this.initEvents();
     };
     
     
@@ -19,6 +20,20 @@ define(['../level_capabilities', 'Howler'], function (addLevelCapabilities, howl
             level.chronoStart();
         }, 1000);
         
+        
+        
+        
+    };
+    
+    
+    Level.prototype.initEvents = function () {
+        var level    = this;
+        var eventBus = this.eventBus;
+        
+        eventBus.on('chrono started', function () {
+            eventBus.emit('countdown', 10);
+            level.countNextSecond(true);
+        });
     };
     
     return Level;

@@ -38,15 +38,24 @@ define(['underscore', 'jquery', 'level_ui'], function (_, $, LevelUI) {
     
     
     ui.loadBehaviours = function () {
+        
         this.$container.on('click', '.levelItem', function (e) {
             ui.loadLevel($(this).data('level'));
         });
+        
+        $('body').on('keydown', function (e) {
+            if (e.keyCode === 32) {
+                ui.levelEventBus.emit('chrono stop');
+            }
+        });
+        
     };
     
     
     ui.initEvents = function () {
 
         eventBus.on('level loaded', function (levelCode, levelEventBus) {
+            ui.levelEventBus = levelEventBus;
             ui.$infoBar.html("Loaded level " + levelCode);
             new LevelUI(this.$levelContainer, levelEventBus);
         });
