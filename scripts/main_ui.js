@@ -53,6 +53,8 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
                 name:  levelName
             }));
         });
+        
+        this.goTo('home');
     };
     
     

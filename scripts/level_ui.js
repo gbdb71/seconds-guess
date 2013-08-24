@@ -10,7 +10,7 @@ define(['underscore', 'jquery'], function (_, $) {
         this.$chronoContainer = this.$container.find('.chrono');
         this.$chronoMessage   = this.$chronoContainer.find('.message');
         this.$count           = this.$chronoContainer.find('.countdown');
-        
+        this.$levelStart      = this.$container.find('.levelStart');
         this.$levelEnd        = this.$container.find('.levelEnd');
         
         this.initEvents();
@@ -34,6 +34,11 @@ define(['underscore', 'jquery'], function (_, $) {
         
         this.$container.on('click', '.back', function () {
             eventBus.emit('close level');
+        });
+        
+        this.$container.on('click', '.go', function () {
+            ui.$levelStart.hide();
+            eventBus.emit('player ready');
         });
     };
     

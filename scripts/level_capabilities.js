@@ -4,7 +4,7 @@ define(function () { return function (level, eventBus) {
     level.eventBus  = eventBus;
     level.score     = 0;
     
-    eventBus.on('ui ready', function () {
+    eventBus.on('player ready', function () {
         level.start();
     });
     
