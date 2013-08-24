@@ -12,7 +12,7 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
     
     game.init = function (container) {
         ui.init(container, mainEventBus);
-        ui.loadLevelIndex(levels);
+        mainEventBus.emit('show index', levels);
     };
     
     
@@ -25,6 +25,10 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
         delete game.currentLevel;
         game.levelEventBus = {};
         addEventCapabilities(game.levelEventBus);
+        
+        game.levelEventBus.on('close level', function () {
+            mainEventBus.emit('show index', levels);
+        });
         
         require(['levels/' + levelName], function (Level) {
             game.currentLevel = new Level(game.levelEventBus);

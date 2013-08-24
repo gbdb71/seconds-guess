@@ -14,8 +14,8 @@ define(['underscore', 'jquery', 'level_ui'], function (_, $, LevelUI) {
         this.$infoBar        = container.find('#infoBar');
         this.$levelContainer = container.find('#level');
         
-        ui.loadBehaviours();
-        ui.initEvents();
+        this.loadBehaviours();
+        this.initEvents();
     };
     
     
@@ -33,7 +33,8 @@ define(['underscore', 'jquery', 'level_ui'], function (_, $, LevelUI) {
     
     ui.loadLevel = function (levelName) {
         eventBus.emit('load level', levelName);
-        this.$levelContainer.html(_.template($('#'+levelName+'Template').html()));
+        this.$levelContainer.html(_.template($('#levelTemplate').html()));
+        this.$levelContainer.find('.levelContent').html(_.template($('#'+levelName+'Template').html()));
     };
     
     
@@ -49,15 +50,23 @@ define(['underscore', 'jquery', 'level_ui'], function (_, $, LevelUI) {
             }
         });
         
+        $(window).resize(function () {
+            ui.levelEventBus.emit('resize');
+        });
+        
     };
     
     
     ui.initEvents = function () {
 
+        eventBus.on('show index', function (levels) {
+            ui.loadLevelIndex(levels);
+        });
+
         eventBus.on('level loaded', function (levelCode, levelEventBus) {
             ui.levelEventBus = levelEventBus;
             ui.$infoBar.html("Loaded level " + levelCode);
-            new LevelUI(this.$levelContainer, levelEventBus);
+            new LevelUI(ui.$levelContainer, levelEventBus);
         });
         
     };

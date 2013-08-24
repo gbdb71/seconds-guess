@@ -1,28 +1,27 @@
-define(['../level_capabilities', 'Howler'], function (addLevelCapabilities, howler) {
+define(['../level_capabilities'], function (addLevelCapabilities) {
     
     var Level = function (eventBus) {
         addLevelCapabilities(this, eventBus);
         this.initEvents();
+        
+        this.instructions = [
+            ['good', 'Trust the numbers']
+        ];
     };
     
     
     Level.prototype.start = function () {
         var level = this;
         
-        $('#play').click(function() {
-            var sound = new howler.Howl({
-              urls: ['sounds/sample.ogg']
-            }).play();
-        });
-        
-        
         setTimeout(function () {
             level.chronoStart();
         }, 1000);
         
-        
-        
-        
+    };
+    
+    
+    Level.prototype.setScore = function () {
+        this.score = this.classicScore(100);
     };
     
     
@@ -32,7 +31,7 @@ define(['../level_capabilities', 'Howler'], function (addLevelCapabilities, howl
         
         eventBus.on('chrono started', function () {
             eventBus.emit('countdown', 10);
-            level.countNextSecond(true);
+            level.countNextSecond(0);
         });
     };
     

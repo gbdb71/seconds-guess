@@ -1,0 +1,32 @@
+html, body{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2{
+  margin: 0;
+}
+
+#game{
+  height: 100%;
+  margin: auto;
+}
+
+#level{
+  position: relative;
+}
+
+#level .chrono{
+  position: absolute;
+  top:  20%;
+  left: 30%;
+  width: 40%;
+  background: #FFF;
+}
+
+#level .levelEnd{
+  position: absolute;
+  top:  0;
+  left: 0;
+}

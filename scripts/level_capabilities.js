@@ -2,20 +2,22 @@ define(function () { return function (level, eventBus) {
 
     level.startTime = null;
     level.eventBus  = eventBus;
+    level.score     = 0;
     
-    eventBus.on('ui ready', function (container) {
-        level.$container = container;
+    eventBus.on('ui ready', function () {
         level.start();
     });
     
     
     eventBus.on('chrono stop', function () {
-        if (!level.startTime || level.stopTime) {
+        if (!level.startTime || level.dt) {
             return;
         }
-        level.stopTime = (new Date()).getTime();
-        eventBus.emit('chrono stopped', level.stopTime - level.targetTime);
-        clearTimeout(this.tooLateTimer);
+        level.dt = level.targetTime - (new Date()).getTime();
+        clearTimeout(level.tooLateTimer);
+        
+        level.setScore();
+        eventBus.emit('scored', level.dt, level.score);
     });
     
     
@@ -30,23 +32,26 @@ define(function () { return function (level, eventBus) {
     };
     
     
-    level.countNextSecond = function (andAgain) {
+    level.countNextSecond = function (until) {
+        var untilSecond = until || 0;
         var remaining   = level.targetTime - (new Date()).getTime();
         var fullSeconds = Math.floor(remaining / 1000);
-        if (fullSeconds < 0 || level.stopTime) {
-            return;
+        if (fullSeconds >= untilSecond && !level.dt) {
+            setTimeout(function () {
+                eventBus.emit('countdown', fullSeconds);
+
+                if (typeof until !== 'undefined') {
+                    setTimeout(function () {
+                        level.countNextSecond(until);
+                    }, 300);
+                }
+
+            }, remaining - 1000 * fullSeconds);
         }
-        setTimeout(function () {
-            eventBus.emit('countdown', fullSeconds);
-            
-            if (andAgain) {
-                setTimeout(function () {
-                    level.countNextSecond(andAgain);
-                }, 300);
-            }
-            
-        }, remaining - 1000 * fullSeconds);
     };
 
+    level.classicScore = function (semiWidth) {
+        return Math.round(1000 * Math.pow(2, -Math.abs(level.dt/(semiWidth*0.95))));
+    };
     
 };});
