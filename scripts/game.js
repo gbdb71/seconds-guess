@@ -6,7 +6,9 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
     addEventCapabilities(mainEventBus);
     
     var levels = {
-        'test': 'Test Level'
+        'test': 'Test Level',
+        'test2': 'Super cool',
+        'test3': 'Super cool'
     };
     
     

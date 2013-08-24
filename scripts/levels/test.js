@@ -30,8 +30,10 @@ define(['../level_capabilities'], function (addLevelCapabilities) {
         var eventBus = this.eventBus;
         
         eventBus.on('chrono started', function () {
-            eventBus.emit('countdown', 10);
-            level.countNextSecond(0);
+            var seconds = level.countNextSecond(0);
+            if (seconds < 10) {
+                eventBus.emit('countdown', 10);
+            }
         });
     };
     

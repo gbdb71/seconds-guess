@@ -48,6 +48,7 @@ define(function () { return function (level, eventBus) {
 
             }, remaining - 1000 * fullSeconds);
         }
+        return fullSeconds;
     };
 
     level.classicScore = function (semiWidth) {

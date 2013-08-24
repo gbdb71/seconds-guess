@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='http://fonts.googleapis.com/css?family=Crafty+Girls|Henny+Penny|The+Girl+Next+Door|Gochi+Hand|Just+Me+Again+Down+Here|Happy+Monkey|Sunshiney' rel='stylesheet' type='text/css'>
     <link href="style.css" rel="stylesheet">
     <title>10 seconds Game</title>
     <script data-main="scripts/main" src="scripts/ext_libs/require.js"></script>
@@ -14,8 +15,9 @@
     
     <div id="templates" style="display: none;">
         <script id="mainTemplate" type="text/template">
-            <div id="infoBar"></div>
-            <div id="level"></div>
+            <div class="infoBar">10 seconds - <span class="message"></span></div>
+            <div class="level"></div>
+            <div class="main"></div>
         </script>
         
         <script id="levelTemplate" type="text/template">
@@ -32,7 +34,7 @@
         </script>
         
         <script id="levelIndexTemplate" type="text/template">
-            <h1>10 seconds</h1>
+            <h1>Levels</h1>
             <ul id="levelIndex">
             </ul>
         </script>
@@ -51,8 +53,6 @@
         </script>
         
         <script id="testTemplate" type="text/template">
-            <h1>My Test Level</h1>
-            <button id="play">Hello</button>
         </script>
     </div>
     

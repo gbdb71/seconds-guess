@@ -2,6 +2,14 @@ html, body{
   height: 100%;
   margin: 0;
   padding: 0;
+  color: #FFF;
+  font-family: 'The Girl Next Door', cursive;
+  font-size: 30px;
+}
+
+body,
+.level .levelEnd{
+  background: #23364E;
 }
 
 h1, h2{
@@ -9,24 +17,84 @@ h1, h2{
 }
 
 #game{
+  position: relative;
   height: 100%;
   margin: auto;
 }
 
-#level{
+
+
+
+.infoBar{
+  display: none;
+  border-bottom: 1px solid #FFF;
+  padding: 0.2em 1em;
+}
+
+
+.main{
+  position: absolute;
+  width: 100%;
+  top:  0;
+  left: 0;
+}
+
+
+
+#levelIndex li{
+  float: left;
+  width: 15%;
+  margin: 2% 5%;
+  list-style-type: none;
+  cursor: pointer;
+}
+
+#levelIndex li:hover{
+  list-style-type: disc;
+}
+
+
+
+
+
+
+.level{
   position: relative;
 }
 
-#level .chrono{
-  position: absolute;
-  top:  20%;
-  left: 30%;
-  width: 40%;
-  background: #FFF;
-}
-
-#level .levelEnd{
+.level .chrono{
   position: absolute;
   top:  0;
   left: 0;
+  width: 100%;
+}
+
+.level .chrono .countdown{
+  padding-left: 1em;
+}
+
+.level .chrono .countdown span{
+  font-family: serif;
+  font-size:  100px;
+  text-shadow: 0 0 0.15em rgba(255, 255, 255, 0.4);
+  transition: text-shadow 1s;
+}
+
+.level .chrono .countdown span.new{
+  text-shadow: 0 0 0.15em rgba(255, 255, 255, 1);
+}
+
+.level.bad_numbers .chrono .countdown span{
+  font-family: 'Henny Penny', cursive;
+}
+
+
+.level .levelEnd{
+  display: none;
+  position: absolute;
+  width:  100%;
+  height: 100%;
+  top:    0;
+  left:   0;
+  text-align: center;
 }

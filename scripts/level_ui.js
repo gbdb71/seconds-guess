@@ -44,11 +44,18 @@ define(['underscore', 'jquery'], function (_, $) {
         var eventBus = this.eventBus;
         
         eventBus.on('chrono started', function () {
-            ui.$chronoMessage.show().html('Chrono started... type space to guess');
+            ui.$chronoMessage.show().html('Type space when you think time is up');
         });
         
         eventBus.on('countdown', function (time) {
-            ui.$count.html(time);
+            if (time < 10) {
+                time = '.' + time;
+            }
+            var newCount = $('<span class="new">'+time+'</span>');
+            ui.$count.append(newCount);
+            setTimeout(function () {
+                newCount.removeClass('new');
+            }, 50);
         });
         
         eventBus.on('scored', function (dt, score) {
