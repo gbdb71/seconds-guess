@@ -10,11 +10,14 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
         eventBus = _eventBus;
         
         this.$container = container;
-        container.html(_.template($('#mainTemplate').html()));
+        container.html(_.template($('#mainTemplate').html(), {
+            email: 'pierre' + '@toxicode.fr'
+        }));
 
         
         this.$homeContainer         = container.find('#home');
         this.$levelsIndexContainer  = container.find('#levels');
+        this.$comboEndContainer     = container.find('#comboEnd');
         
         this.associateLevelsWithScreens(levels);
         
@@ -39,6 +42,7 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
         
         this.initEvents();
     };
+    
     
     
     ui.goTo = function (pageName, duration) {
@@ -71,20 +75,7 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
     
     
     ui.gotoLevel = function (levelName) {
-        eventBus.emit('load level', levelName);
-       
-        var levelElemID = levelToScreen[levelName];
-        this.$levelContainer = $('#'+levelElemID);
-
-        this.$levelContainer.html(_.template($('#levelTemplate').html()));
-        
-        this.goTo(levelElemID);
-        
-        var template = $('#'+levelName+'Template').html();
-        if (template) {
-            this.$levelContainer.find('.levelContent').html(_.template($('#'+levelName+'Template').html()));
-        }
-        
+        eventBus.emit('player wants level', levelName);
     };
     
     
@@ -110,10 +101,49 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
             eventBus.emit('ask index');
         });
         
+        $('.playCombo').click(function () {
+            eventBus.emit('play combo');
+        });
+        
         this.$container.on('click', '.gotoHome', function () {
             ui.goTo('home');
         });
     };
+    
+    
+    ui.loadLevel = function (levelName, levelEventBus) {
+        var levelElemID = levelToScreen[levelName];
+        this.$levelContainer = $('#'+levelElemID);
+
+        this.$levelContainer.html(_.template($('#levelTemplate').html()));
+        
+        this.goTo(levelElemID);
+        
+        var template = $('#'+levelName+'Template').html();
+        if (template) {
+            this.$levelContainer.find('.levelContent').html(_.template($('#'+levelName+'Template').html()));
+        }
+        
+        this.levelEventBus = levelEventBus;
+        new LevelUI(this.$levelContainer, levelEventBus);
+    };
+    
+    
+    
+    ui.showComboEnd = function (score, time) {
+        this.$comboEndContainer.html(_.template($('#comboEndTemplate').html(), {
+            score: score,
+            time: time
+        }));
+        
+        var $cont = this.$comboEndContainer.find('.endContainer');
+        $cont.css({
+            'margin-top': (0.4 * (this.$comboEndContainer.height() - $cont.height()))+'px'
+        });
+        
+        this.goTo('comboEnd');
+    };
+    
     
     
     ui.initEvents = function () {
@@ -122,9 +152,12 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
             ui.loadLevelIndex(levels);
         });
 
-        eventBus.on('level loaded', function (levelCode, levelEventBus) {
-            ui.levelEventBus = levelEventBus;
-            new LevelUI(ui.$levelContainer, levelEventBus);
+        eventBus.on('level loaded', function (levelName, levelEventBus) {
+            ui.loadLevel(levelName, levelEventBus);
+        });
+        
+        eventBus.on('combo end', function (score, time) {
+            ui.showComboEnd(score, time);
         });
         
     };

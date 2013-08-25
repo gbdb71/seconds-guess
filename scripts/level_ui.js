@@ -97,13 +97,16 @@ define(['underscore', 'jquery'], function (_, $) {
         });
         
         
-        eventBus.on('display infos', function (title, infos) {
-            ui.$infoBar.find('.message').html(title);
-
-            _.each(infos, function (info) {
+        eventBus.on('display infos', function (infos) {
+            ui.$infoBar.find('.message').html(infos.title);
+            if (infos.combo) {
+                ui.$infoBar.find('.combo').html(infos.combo.index + ' / ' + infos.combo.total);
+            }
+            
+            _.each(infos.instructions, function (instruction) {
                 ui.$explanations.html(_.template($('#explanationTemplate').html(), {
-                    type:    info[0],
-                    message: info[1]
+                    type:    instruction[0],
+                    message: instruction[1]
                 }));
             });
             

@@ -1,12 +1,21 @@
-define(function () { return function (level, eventBus) {
+define(function () { return function (level, params) {
 
+    var eventBus = params.eventBus;
+    
     level.startTime = null;
     level.eventBus  = eventBus;
+    level.name      = params.name;
+    level.title     = params.title;
+    level.combo     = params.combo;
     level.score     = 0;
     
     
     eventBus.on('ui ready', function () {
-        eventBus.emit('display infos', level.title, level.instructions);
+        eventBus.emit('display infos', {
+            title:          level.title,
+            combo:          level.combo,
+            instructions:   level.instructions
+        });
     });
     
     eventBus.on('player ready', function () {

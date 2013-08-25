@@ -17,14 +17,17 @@
         <script id="mainTemplate" type="text/template">
             <div id="home" class="main step" data-x="0" data-y="0">
                 <h1>Seconds-Guess</h1>
-                <div class="button gotoLevels">All Levels</div>
+                <div class="credits">A game written by <%= email %></div>
+                <div class="button playCombo">Play combo mode</div>
+                <div class="button gotoLevels">Pick a level</div>
             </div>
             <div id="levels" class="main step" data-x="-1500" data-y="0"></div>
+            <div id="comboEnd" class="main step" data-x="-1500" data-y="1500"></div>
             <div id="levelScreen_1" class="step level" data-x="-1500" data-y="-1500"></div>
         </script>
         
         <script id="levelTemplate" type="text/template">
-            <div class="infoBar">Seconds-Guess - <span class="message"></span></div>
+            <div class="infoBar">Seconds-Guess - <span class="message"></span> <div class="combo"></div></div>
             <div class="levelContent"></div>
             <div class="chrono">
                 <div class="message">Click, tap, or press 'space' precisely after 10 seconds</div>
@@ -64,6 +67,17 @@
                     <br />
                 <% } %>
                 Your score : <%= score %>
+                <div class="button back">Back</div>
+            </div>
+        </script>
+        
+        <script id="comboEndTemplate" type="text/template">
+            <div class="endContainer">
+                The END !
+                <br />
+                Time errors total : <%= time %> ms
+                <br />
+                Your final score : <%= score %>
                 <div class="button back">Back</div>
             </div>
         </script>

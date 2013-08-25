@@ -1,7 +1,7 @@
 define(['../level_capabilities'], function (addLevelCapabilities) {
     
-    var Level = function (eventBus) {
-        addLevelCapabilities(this, eventBus);
+    var Level = function (params) {
+        addLevelCapabilities(this, params);
         this.initEvents();
         
         this.instructions = [

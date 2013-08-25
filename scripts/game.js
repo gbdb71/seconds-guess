@@ -25,14 +25,39 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
     };
     
     
-    mainEventBus.on('load level', function (levelName) {
+    mainEventBus.on('player wants level', function (levelName) {
+        game.comboIndex = false;
         game.loadLevel(levelName);
     });
-    
     
     mainEventBus.on('ask index', function () {
         mainEventBus.emit('show index', levels);
     });
+    
+    mainEventBus.on('play combo', function () {
+        game.initCombo();
+    });
+    
+    
+    game.initCombo = function () {
+        this.comboList      = _.keys(levels);
+        this.comboScore     = 0;
+        this.comboTime      = 0;
+        this.comboIndex     = 0;
+        this.comboLength    = this.comboList.length;
+        this.comboNext();
+    };
+    
+    
+    game.comboNext = function () {
+        this.comboIndex += 1;
+        if (this.comboIndex <= this.comboLength) {
+            this.loadLevel(this.comboList[this.comboIndex - 1]);
+        } else {
+            mainEventBus.emit('combo end', this.comboScore, this.comboTime);
+            this.comboIndex = false;
+        }
+    };
     
 
     game.loadLevel = function (levelName) {
@@ -43,16 +68,30 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
         
         game.levelEventBus.on('scored', function (dt, score) {
             game.recordScore(dt, score);
+            if (game.comboIndex) {
+                game.comboScore += score;
+                game.comboTime  += Math.abs(dt);
+            }
         });
         
         game.levelEventBus.on('close level', function () {
-            mainEventBus.emit('show index', levels);
+            if (game.comboIndex) {
+                game.comboNext();
+            } else {
+                mainEventBus.emit('show index', levels);
+            }
         });
         
         require(['levels/' + levelName], function (Level) {
-            game.currentLevel = new Level(game.levelEventBus);
-            game.currentLevel.name  = levelName;
-            game.currentLevel.title = levels[levelName].title;
+            game.currentLevel = new Level({
+                name:       levelName,
+                title:      levels[levelName].title,
+                eventBus:   game.levelEventBus,
+                combo:      !game.comboIndex ? false : {
+                    index: game.comboIndex,
+                    total: game.comboLength
+                }
+            });
             mainEventBus.emit('level loaded', levelName, game.levelEventBus);
         });
     };

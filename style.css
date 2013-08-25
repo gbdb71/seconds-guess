@@ -37,6 +37,12 @@ h1, h2{
   z-index: 10;
 }
 
+.infoBar .combo{
+  position: absolute;
+  right: 0;
+  top:   0;
+}
+
 
 .button{
   cursor: pointer;
@@ -51,10 +57,17 @@ h1, h2{
 
 
 
-.main h1{
+.main {
   text-align: center;
 }
 
+.credits{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  font-size: 0.5em;
+}
 
 
 
@@ -63,7 +76,7 @@ h1, h2{
 .level .button,
 .gotoHome{
   width: 10em;
-  margin: auto;
+  margin: 0.5em auto;
 }
 
 .gotoHome{
