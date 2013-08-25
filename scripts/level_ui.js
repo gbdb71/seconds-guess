@@ -102,6 +102,13 @@ define(['underscore', 'jquery'], function (_, $) {
                 }));
             });
             
+            var $cont = ui.$container.find('.infosContainer');
+            $cont.css({
+                'margin-top':   (0.4 * (ui.$container.height() - $cont.height()))+'px'
+            });
+            
+            ui.$container.find('.level .chrono .countdown').css('font-size', (ui.$container.width()/10) + 'px');
+            
         });
     };
     

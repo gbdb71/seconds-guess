@@ -80,10 +80,15 @@ h1, h2{
 
 
 
+
+
+
+
+
 .level{
   position: relative;
+  border: 1px solid #FFF;
 }
-
 
 
 .level .go{
@@ -91,21 +96,34 @@ h1, h2{
   margin: auto;
 }
 
-
-.level .chrono{
+.level .back{
+  cursor: pointer;
   position: absolute;
-  top:  0;
-  left: 0;
+  bottom: 0;
+  left:   0;
+}
+
+
+.level .explanations{
+  padding-bottom: 1em;
+}
+
+.level .chrono .message{
+  position: absolute;
+  bottom: 0;
+  left:   0;
   width: 100%;
+  text-align: center;
 }
 
 .level .chrono .countdown{
-  padding-left: 1em;
+  position: absolute;
+  top: 30%;
+  font-family: serif;
+  font-size: 155px;
 }
 
 .level .chrono .countdown span{
-  font-family: serif;
-  font-size:  100px;
   text-shadow: 0 0 0.15em rgba(255, 255, 255, 0.4);
   transition: text-shadow 1s;
 }
