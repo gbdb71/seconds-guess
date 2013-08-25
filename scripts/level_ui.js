@@ -7,16 +7,19 @@ define(['underscore', 'jquery'], function (_, $) {
         
         this.$infoBar         = this.$container.find('.infoBar');
         this.$content         = this.$container.find('.levelContent');
+        this.$levelStart      = this.$container.find('.levelStart');
+        this.$levelEnd        = this.$container.find('.levelEnd');
+        this.$explanations    = this.$container.find('.explanations');
+        
         this.$chronoContainer = this.$container.find('.chrono');
         this.$chronoMessage   = this.$chronoContainer.find('.message');
         this.$count           = this.$chronoContainer.find('.countdown');
-        this.$levelStart      = this.$container.find('.levelStart');
-        this.$levelEnd        = this.$container.find('.levelEnd');
+        
+        
         
         this.initEvents();
         this.initBehaviours();
         
-        this.$infoBar.find('.message').html('My level');
         
         this.resize();
         
@@ -40,6 +43,17 @@ define(['underscore', 'jquery'], function (_, $) {
             ui.$levelStart.hide();
             eventBus.emit('player ready');
         });
+        
+        eventBus.on('player action', function () {
+            if (ui.chronoStopped) {
+                eventBus.emit('close level');
+            } else if (ui.chronoStarted) {
+                eventBus.emit('chrono stop');
+            } else {
+                ui.$levelStart.hide();
+                eventBus.emit('player ready');
+            }
+        });
     };
     
     
@@ -48,7 +62,8 @@ define(['underscore', 'jquery'], function (_, $) {
         var eventBus = this.eventBus;
         
         eventBus.on('chrono started', function () {
-            ui.$chronoMessage.show().html('Type space when you think time is up');
+            ui.chronoStarted = true;
+            ui.$chronoMessage.show();
         });
         
         eventBus.on('countdown', function (time) {
@@ -63,10 +78,12 @@ define(['underscore', 'jquery'], function (_, $) {
         });
         
         eventBus.on('scored', function (dt, score) {
+            ui.chronoStopped = true;
             ui.displayEnd('You stopped', dt, score);
         });
         
         eventBus.on('too late', function () {
+            ui.chronoStopped = true;
             ui.displayEnd('Bad timing - more than 15 seconds !', '', 0);
         });
         
@@ -74,6 +91,18 @@ define(['underscore', 'jquery'], function (_, $) {
             ui.resize();
         });
         
+        
+        eventBus.on('display infos', function (infos) {
+            ui.$infoBar.find('.message').html('My level');
+
+            _.each(infos, function (info) {
+                ui.$explanations.html(_.template($('#explanationTemplate').html(), {
+                    type:    info[0],
+                    message: info[1]
+                }));
+            });
+            
+        });
     };
     
     

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='http://fonts.googleapis.com/css?family=Crafty+Girls|Henny+Penny|The+Girl+Next+Door|Gochi+Hand|Just+Me+Again+Down+Here|Happy+Monkey|Sunshiney' rel='stylesheet' type='text/css'>
     <link href="style.css" rel="stylesheet">
-    <title>10 seconds Game</title>
+    <title>Seconds-Guess</title>
     <script data-main="scripts/main" src="scripts/ext_libs/require.js"></script>
 </head>
 <body>
@@ -15,32 +15,42 @@
     
     <div id="templates" style="display: none;">
         <script id="mainTemplate" type="text/template">
-            <div id="home" class="main step" data-x="-1000" data-y="-1500"></div>
+            <div id="home" class="main step" data-x="0" data-y="0">
+                <h1>Seconds-Guess</h1>
+                <div class="button gotoLevels">All Levels</div>
+            </div>
+            <div id="levels" class="main step" data-x="-1500" data-y="0"></div>
+            <div id="levelScreen_1" class="step level" data-x="-1500" data-y="-1500"></div>
         </script>
         
         <script id="levelTemplate" type="text/template">
-            <div class="infoBar">10 seconds - <span class="message"></span></div>
+            <div class="infoBar">Seconds-Guess - <span class="message"></span></div>
             <div class="levelContent"></div>
             <div class="chrono">
-                <div class="message"></div>
+                <div class="message">Click, tap, or press 'space' precisely after 10 seconds</div>
                 <div class="countdown"></div>
             </div>
-            <div class="levelStart"><div class="go button">Go !</div></div>
+            <div class="levelStart">
+                <div class="explanations"></div>
+                <div class="go button">Go !</div>
+                <div class="button back">Back</div>
+            </div>
             <div class="levelEnd"></div>
         </script>
         
-        <script id="startPageTemplate" type="text/template">
-            <h1 id="start">Start</h1>
+        <script id="explanationTemplate" type="text/template">
+            <div class="explanation <%= type %>"><%= message %></div>
         </script>
         
         <script id="levelIndexTemplate" type="text/template">
             <h1>Levels</h1>
             <ul id="levelIndex">
             </ul>
+            <div class="button gotoHome">Home</div>
         </script>
         
         <script id="levelInList" type="text/template">
-            <li class="levelItem button" data-level="<%= name %>"><%= level.title %><br>score : <%= level.meanScore %><br>time : <%= level.meanTime %></li>
+            <li class="levelItem button" data-level="<%= name %>"><%= level.title %><br>average : <%= level.meanScore %><br>best : <%= level.bestScore %></li>
         </script>
         
         <script id="levelEndTemplate" type="text/template">
@@ -49,7 +59,7 @@
             <%= time %> ms
             <br />
             Your score : <%= score %>
-            <button class="back">Back</button>
+            <div class="button back">Back</div>
         </script>
         
         <script id="testTemplate" type="text/template">

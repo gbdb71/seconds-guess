@@ -34,20 +34,6 @@ h1, h2{
 }
 
 
-.main,
-.level{
-  width: 800px;
-  height: 500px;
-  border: 1px solid #FFF;
-}
-
-
-
-.main h1{
-  text-align: center;
-}
-
-
 .button{
   cursor: pointer;
   border: 1px solid #FFF;
@@ -57,6 +43,29 @@ h1, h2{
 .button:hover{
   background: #346;
 }
+
+
+
+
+.main h1{
+  text-align: center;
+}
+
+
+
+
+
+#home .button,
+.level .button,
+.gotoHome{
+  width: 10em;
+  margin: auto;
+}
+
+.gotoHome{
+  clear: both;
+}
+
 
 
 #levelIndex li{

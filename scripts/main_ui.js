@@ -3,6 +3,7 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
     var ui = {};
 
     var eventBus;
+    var levelToScreen = {};
 
     
     ui.init = function (container, _eventBus, levels) {
@@ -10,12 +11,12 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
         
         this.$container = container;
         container.html(_.template($('#mainTemplate').html()));
+
         
+        this.$homeContainer         = container.find('#home');
+        this.$levelsIndexContainer  = container.find('#levels');
         
-        
-        this.$mainContainer  = container.find('.main');
-        
-        this.loadLevelTemplates(levels);
+        this.associateLevelsWithScreens(levels);
         
         $('.step').css({
             width:  ($(window).width()  * 0.9)+'px',
@@ -39,18 +40,17 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
     };
     
     
-    ui.loadLevelTemplates = function (levels) {
+    ui.associateLevelsWithScreens = function (levels) {
+        var i = 0;
         _.each(levels, function (levelInfo, levelName) {
-            var elem = $('<div id="level-'+levelName+'" class="step level"></div>');
-            
-            elem.attr('data-x', 1000).attr('data-y', -1500);
-            ui.$container.append(elem);
+            levelToScreen[levelName] = 'levelScreen_1';
+            i += 1;
         });
     };
     
     
     ui.loadLevelIndex = function (levels) {
-        this.$mainContainer.html(_.template($('#levelIndexTemplate').html()));
+        this.$levelsIndexContainer.html(_.template($('#levelIndexTemplate').html()));
         _.each(levels, function (levelInfo, levelName) {
             $('#levelIndex').append(_.template($('#levelInList').html(), {
                 level:  levelInfo,
@@ -58,14 +58,14 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
             }));
         });
         
-        this.goTo('home');
+        this.goTo('levels');
     };
     
     
     ui.gotoLevel = function (levelName) {
         eventBus.emit('load level', levelName);
        
-        var levelElemID = 'level-'+levelName;
+        var levelElemID = levelToScreen[levelName];
         this.$levelContainer = $('#'+levelElemID);
 
         this.$levelContainer.html(_.template($('#levelTemplate').html()));
@@ -88,7 +88,9 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
         
         $('body').on('keydown', function (e) {
             if (e.keyCode === 32) {
-                ui.levelEventBus.emit('chrono stop');
+                if (ui.levelEventBus) {
+                    ui.levelEventBus.emit('player action');
+                }
             }
         });
         
@@ -96,6 +98,13 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
             ui.levelEventBus.emit('resize');
         });
         
+        $('.gotoLevels').click(function () {
+            eventBus.emit('ask index');
+        });
+        
+        this.$container.on('click', '.gotoHome', function () {
+            ui.goTo('home');
+        });
     };
     
     

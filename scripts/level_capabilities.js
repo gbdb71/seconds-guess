@@ -4,8 +4,16 @@ define(function () { return function (level, eventBus) {
     level.eventBus  = eventBus;
     level.score     = 0;
     
+    
+    eventBus.on('ui ready', function () {
+        eventBus.emit('display infos', level.instructions);
+    });
+    
     eventBus.on('player ready', function () {
-        level.start();
+        if (!level.started) {
+            level.start();
+            level.started = true;
+        }
     });
     
     

@@ -8,20 +8,30 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
     addEventCapabilities(mainEventBus);
     
     var levels = {
-        'test': {
-            title : 'Test Level'
+        'numbers_all': {
+            title : 'Easy'
+        },
+        'numbers_5': {
+            title : 'Only five'
+        },
+        'nothing': {
+            title : 'No help'
         }
     };
     
     game.init = function (container) {
         this.loadScores();
         ui.init(container, mainEventBus, levels);
-        mainEventBus.emit('show index', levels);
     };
     
     
     mainEventBus.on('load level', function (levelName) {
         game.loadLevel(levelName);
+    });
+    
+    
+    mainEventBus.on('ask index', function () {
+        mainEventBus.emit('show index', levels);
     });
     
 
@@ -38,7 +48,6 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
         game.levelEventBus.on('close level', function () {
             mainEventBus.emit('show index', levels);
         });
-        
         
         require(['levels/' + levelName], function (Level) {
             game.currentLevel = new Level(game.levelEventBus);
@@ -60,11 +69,15 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
     };
     
     
+    
+    
     game.recordScore = function (dt, score) {
         var levelName = game.currentLevel.name;
         if (typeof localStorage === 'undefined') {
             return;
         }
+        
+        var time = Math.abs(dt);
         
         var key = storageKey +'_' + levelName;
         
@@ -76,14 +89,21 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
         lastScores = _.last(storage.scores, 10);
         storage.meanScore = Math.round(_.reduce(lastScores, function(memo, num){ return memo + num; }, 0) / lastScores.length);
         
+        storage.bestScore = Math.max(storage.bestScore || 0, score);
+        
+        
         
         storage.times = storage.times || [];
-        storage.times.push(Math.abs(dt));    
+        storage.times.push(time);    
     
         lastTimes = _.last(storage.times, 10);
         storage.meanTime = Math.round(_.reduce(lastTimes, function(memo, num){ return memo + num; }, 0) / lastTimes.length);
         
+        storage.bestTime = Math.max(storage.bestTime || 0, time);
+        
+        
         localStorage[key] = JSON.stringify(storage);
+        
                 
         this.loadScores();
     };
