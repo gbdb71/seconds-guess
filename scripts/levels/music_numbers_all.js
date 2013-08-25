@@ -41,12 +41,12 @@ define(['../level_capabilities', 'Howler'], function (addLevelCapabilities, howl
             eventBus.emit('wait for load');
             
             level.sound = new howler.Howl({
-              urls: ['sounds/sample.ogg']
+              urls: ['sounds/sample.ogg'],
+              onload: function () {
+                  eventBus.emit('loading complete');
+              }
             });
             
-            level.sound.on('load', function () {
-                eventBus.emit('loading complete');
-            });    
         });
         
         eventBus.on('stop all', function () {

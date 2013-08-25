@@ -22,8 +22,9 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
         
         this.associateLevelsWithScreens(levels);
         
-        var width  =  $(window).width()  * 0.9;
+        
         var height =  $(window).height() * 0.9;
+        var width  =  Math.min($(window).width()*0.9, height * 2);
         
         this.$container.attr('data-width', width).attr('data-height', height);
         this.$container.css('font-size', Math.round(Math.min(width/26, height/8))+'px');
@@ -56,7 +57,7 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
     ui.associateLevelsWithScreens = function (levels) {
         var i = 0;
         _.each(levels, function (levelInfo, levelName) {
-            levelToScreen[levelName] = 'levelScreen_1';
+            levelToScreen[levelName] = 'levelScreen_'+(i%2);
             i += 1;
         });
     };
@@ -101,7 +102,9 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
         });
         
         $(window).resize(function () {
-            ui.levelEventBus.emit('resize');
+            if (ui.levelEventBus) {
+                ui.levelEventBus.emit('resize');
+            }
         });
         
         $('.gotoLevels').click(function () {
@@ -171,6 +174,10 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
 
         eventBus.on('level loaded', function (levelName, levelEventBus) {
             ui.loadLevel(levelName, levelEventBus);
+        });
+        
+        eventBus.on('level unloaded', function (score, time) {
+            delete ui.levelEventBus;
         });
         
         eventBus.on('combo end', function (score, time) {

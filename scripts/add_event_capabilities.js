@@ -1,6 +1,8 @@
 define(function() {
     
-	var addEventCapabilities = function (object) {
+	var addEventCapabilities = function (object, _objectName) {
+	    
+	    var objectName = _objectName;
 	    
 	    object.listenersFor = {};
 	    

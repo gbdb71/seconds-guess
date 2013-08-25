@@ -5,7 +5,7 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
     var storageKey = '10_sec_toxi';
     
     var mainEventBus = {};
-    addEventCapabilities(mainEventBus);
+    addEventCapabilities(mainEventBus, 'Game');
     
     var levels = {
         'numbers_all': {
@@ -34,6 +34,7 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
     });
     
     mainEventBus.on('player wants index', function () {
+        game.unloadLevel();
         mainEventBus.emit('show index', levels);
     });
     
@@ -76,11 +77,17 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
         this.comboIndex = false;
         mainEventBus.emit('combo aborted');
     };
+    
+    game.unloadLevel = function () {
+        mainEventBus.emit('level unloaded');
+        delete game.currentLevel;
+        delete game.levelEventBus;
+    };
 
     game.loadLevel = function (levelName) {
-        delete game.currentLevel;
+        this.unloadLevel();
         game.levelEventBus = {};
-        addEventCapabilities(game.levelEventBus);
+        addEventCapabilities(game.levelEventBus, levelName);
         
         
         game.levelEventBus.on('scored', function (dt, score) {
