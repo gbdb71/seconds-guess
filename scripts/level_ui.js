@@ -46,7 +46,8 @@ define(['underscore', 'jquery'], function (_, $) {
         var ui = this;
         var eventBus = this.eventBus;
         
-        this.$container.on('click', '.back', function () {
+        this.$container.on('click', '.back', function (e) {
+            e.stopImmediatePropagation();
             eventBus.emit('back');
         });
         

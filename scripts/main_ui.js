@@ -94,6 +94,12 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
             }
         });
         
+        $('body').on('click', function (e) {
+            if (ui.levelEventBus) {
+                ui.levelEventBus.emit('player action');
+            }
+        });
+        
         $(window).resize(function () {
             ui.levelEventBus.emit('resize');
         });
