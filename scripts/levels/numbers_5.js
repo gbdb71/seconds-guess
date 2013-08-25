@@ -5,7 +5,7 @@ define(['../level_capabilities'], function (addLevelCapabilities) {
         this.initEvents();
         
         this.instructions = [
-            ['good', 'Trust the numbers']
+            ['good', 'Trust the numbers... as long as you see them']
         ];
     };
     
@@ -15,13 +15,13 @@ define(['../level_capabilities'], function (addLevelCapabilities) {
         
         setTimeout(function () {
             level.chronoStart();
-        }, 1000);
+        }, Math.random()*700 + 300);
         
     };
     
     
     Level.prototype.setScore = function () {
-        this.score = this.classicScore(100);
+        this.score = this.classicScore(400);
     };
     
     
@@ -30,7 +30,7 @@ define(['../level_capabilities'], function (addLevelCapabilities) {
         var eventBus = this.eventBus;
         
         eventBus.on('chrono started', function () {
-            var seconds = level.countNextSecond(0);
+            var seconds = level.countNextSecond(5);
             if (seconds < 10) {
                 eventBus.emit('countdown', 10);
             }
