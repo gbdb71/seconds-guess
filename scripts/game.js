@@ -11,6 +11,9 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
         'numbers_all': {
             title : 'Easy'
         },
+        'music_numbers_all': {
+            title : 'Easy in music'
+        },
         'numbers_5': {
             title : 'Only five'
         },

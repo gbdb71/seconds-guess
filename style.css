@@ -104,6 +104,7 @@ h1, h2{
 
 #home .button{
   margin: 0.5em auto;
+  padding: 0.2em;
 }
 
 .gotoHome{
@@ -124,8 +125,8 @@ h1, h2{
 }
 
 #levels li{
-  width: 35%;
-  margin: 0 14% 0.5em 0;
+  width: 44%;
+  margin: 0 5% 0.5em 0;
   line-height: 1.9em;
   cursor: pointer;
   border-radius: 1em;
@@ -212,6 +213,11 @@ h1, h2{
 .level .go{
   width: 4em;
   margin: auto;
+}
+
+.level .loading{
+  display: none;
+  font-size: 0.6em;
 }
 
 .levelStart .back, 

@@ -23,7 +23,7 @@ define(['underscore', 'jquery'], function (_, $) {
         
         this.resize();
         
-        eventBus.emit('ui ready');
+        eventBus.emit('ui ready', this.$container);
     };
     
     
@@ -60,6 +60,9 @@ define(['underscore', 'jquery'], function (_, $) {
         });
         
         eventBus.on('player action', function () {
+            if (ui.waitForLoad) {
+                return;
+            }
             if (ui.chronoStopped) {
                 eventBus.emit('close level');
             } else if (ui.chronoStarted) {
@@ -81,6 +84,20 @@ define(['underscore', 'jquery'], function (_, $) {
     LevelUI.prototype.initEvents = function () {
         var ui = this;
         var eventBus = this.eventBus;
+        
+        
+        eventBus.on('wait for load', function () {
+            ui.waitForLoad = true;
+            ui.$container.find('.go').hide();
+            ui.$container.find('.loading').delay(1000).fadeIn(800);
+        });
+        
+        eventBus.on('loading complete', function () {
+            ui.waitForLoad = false;
+            ui.$container.find('.go').fadeIn(300);
+            ui.$container.find('.loading').remove();
+        });
+        
         
         eventBus.on('chrono started', function () {
             ui.chronoStarted = true;

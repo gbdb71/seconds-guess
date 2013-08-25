@@ -26,6 +26,16 @@ define(function () { return function (level, params) {
     });
     
     
+    eventBus.on('continue', function () {
+        eventBus.emit('stop all');
+    });
+    
+    
+    eventBus.on('back', function () {
+        eventBus.emit('stop all');
+    });
+    
+    
     eventBus.on('chrono stop', function () {
         if (!level.startTime || level.dt) {
             return;
