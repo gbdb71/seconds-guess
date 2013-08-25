@@ -39,7 +39,8 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
         
         this.impress = impress('game');
         this.impress.init();
-        this.goTo(0, 0);
+        this.goTo('help', 0);
+        $('.play').delay(1000).fadeIn(1000);
         
         
         this.initEvents();
@@ -119,7 +120,7 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
             eventBus.emit('play combo');
         });
         
-        this.$container.on('click', '.gotoHome', function () {
+        this.$container.on('click', '.gotoHome, .play', function () {
             ui.goTo('home');
         });
     };

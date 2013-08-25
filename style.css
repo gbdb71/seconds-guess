@@ -32,6 +32,27 @@ h1, h2{
 
 
 
+#help .play{
+  display: none;
+  width:  6em;
+  padding: 0.5em;
+  margin: auto;
+  margin-bottom: 2em;
+}
+
+#help .expl{
+  padding: 1em 0;
+}
+
+#help .please{
+  display: none;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  font-size: 0.6em;
+}
+
 
 .infoBar{
   position: absolute;
@@ -218,6 +239,16 @@ h1, h2{
 
 .level{
   position: relative;
+}
+
+.level .wrapper{
+  background-color: transparent;
+  transition: background-color 0.1s;
+}
+
+.level .started{
+  background-color: #999;
+  transition: background-color 0s;
 }
 
 .level .continue{

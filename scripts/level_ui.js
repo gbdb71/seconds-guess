@@ -102,6 +102,12 @@ define(['underscore', 'jquery'], function (_, $) {
         eventBus.on('chrono started', function () {
             ui.chronoStarted = true;
             ui.$chronoMessage.show();
+            
+            //FOR FLASH
+            /*ui.$container.addClass("started");
+            setTimeout(function () {
+                ui.$container.removeClass("started");
+            }, 50);*/
         });
         
         eventBus.on('countdown', function (time) {
