@@ -117,7 +117,7 @@ define(['underscore', 'jquery'], function (_, $) {
         
         eventBus.on('scored', function (dt, score) {
             ui.chronoStopped = true;
-            ui.displayEnd('You stopped', dt, score);
+            ui.displayEnd(false, dt, score);
         });
         
         eventBus.on('too late', function () {

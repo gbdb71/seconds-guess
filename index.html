@@ -79,13 +79,15 @@
         
         <script id="levelEndTemplate" type="text/template">
             <div class="endContainer">
-                <%= message %>
-                <br />
-                <% if (time !== false) { %>
-                    <%= time %> ms
+                <% if (message) { %>
+                    <%= message %>
                     <br />
                 <% } %>
-                Your score : <%= score %>
+                Score : <%= score %>
+                <% if (time !== false) { %>
+                    <%= Math.abs(time) %> ms too <%= time > 0 ? 'early' : 'late' %>
+                    <br />
+                <% } %>
                 <% if (!combo) { %>
                     <div class="button continue">Back to practice</div>
                 <% } else if (combo.index < combo.total) { %>

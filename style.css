@@ -209,6 +209,10 @@ h1, h2{
   position: relative;
 }
 
+.level .continue{
+  font-size: 0.8em;
+  margin-top: 1em;
+}
 
 .level .go{
   width: 4em;
