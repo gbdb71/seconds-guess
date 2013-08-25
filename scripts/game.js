@@ -22,6 +22,12 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
         },
         'bad_music_good_numbers': {
             title : 'Love numbers'
+        },
+        'only_bad_music': {
+            title : 'Only bad music'
+        },
+        'evil_numbers': {
+            title : 'Evil numbers'
         }
     };
     

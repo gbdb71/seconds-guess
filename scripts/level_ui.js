@@ -104,10 +104,10 @@ define(['underscore', 'jquery'], function (_, $) {
             ui.$chronoMessage.show();
             
             //FOR FLASH
-            /*ui.$container.addClass("started");
+            ui.$container.addClass("started");
             setTimeout(function () {
                 ui.$container.removeClass("started");
-            }, 50);*/
+            }, 50);
         });
         
         eventBus.on('countdown', function (time) {
