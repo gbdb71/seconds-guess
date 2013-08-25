@@ -195,7 +195,7 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
         if (lastTimes.length >= 5) {
             storage.meanTime = Math.round(_.reduce(lastTimes, function(memo, num){ return memo + num; }, 0) / lastTimes.length);
         }
-        storage.bestTime = Math.max(storage.bestTime || 0, time);
+        storage.bestTime = Math.min(storage.bestTime || 0, time);
         
         
         localStorage[key] = JSON.stringify(storage);
