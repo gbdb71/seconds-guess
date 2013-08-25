@@ -30,8 +30,12 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
         game.loadLevel(levelName);
     });
     
-    mainEventBus.on('ask index', function () {
+    mainEventBus.on('player wants index', function () {
         mainEventBus.emit('show index', levels);
+    });
+    
+    mainEventBus.on('player wants scores', function () {
+        mainEventBus.emit('show scores', game.comboScores);
     });
     
     mainEventBus.on('play combo', function () {
@@ -54,9 +58,15 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
         if (this.comboIndex <= this.comboLength) {
             this.loadLevel(this.comboList[this.comboIndex - 1]);
         } else {
-            mainEventBus.emit('combo end', this.comboScore, this.comboTime);
-            this.comboIndex = false;
+            this.comboEnd();
         }
+    };
+    
+    
+    game.comboEnd = function () {
+        game.recordScore('combo', this.comboTime, this.comboScore);
+        mainEventBus.emit('combo end', this.comboScore, this.comboTime);
+        this.comboIndex = false;
     };
     
 
@@ -67,7 +77,7 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
         
         
         game.levelEventBus.on('scored', function (dt, score) {
-            game.recordScore(dt, score);
+            game.recordScore(game.currentLevel.name, dt, score);
             if (game.comboIndex) {
                 game.comboScore += score;
                 game.comboTime  += Math.abs(dt);
@@ -110,13 +120,22 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
                 
             }
         });
+        
+        
+        
+        try {
+            this.comboScores = JSON.parse(localStorage[storageKey + '_combo'] || '{}');
+        } catch (e) {
+            this.comboScores = {};
+        }
     };
     
     
     
     
-    game.recordScore = function (dt, score) {
-        var levelName = game.currentLevel.name;
+    
+    
+    game.recordScore = function (levelName, dt, score) {
         if (typeof localStorage === 'undefined') {
             return;
         }

@@ -13,18 +13,24 @@
     <div id="game"></div>
     
     
+    
+    
     <div id="templates" style="display: none;">
+        
         <script id="mainTemplate" type="text/template">
             <div id="home" class="main step" data-x="0" data-y="0">
                 <h1>Seconds-Guess</h1>
                 <div class="credits">A game written by <%= email %></div>
                 <div class="button playCombo">Play combo mode</div>
                 <div class="button gotoLevels">Practice</div>
+                <div class="button gotoScores">Scores</div>
             </div>
             <div id="levels" class="main step" data-x="-1500" data-y="0"></div>
+            <div id="scores" class="main step" data-x="-1500" data-y="3000"></div>
             <div id="comboEnd" class="main step" data-x="-1500" data-y="1500"></div>
             <div id="levelScreen_1" class="step level" data-x="-1500" data-y="-1500"></div>
         </script>
+        
         
         <script id="levelTemplate" type="text/template">
             <div class="infoBar"><span class="message"></span> <div class="combo"></div></div>
@@ -43,12 +49,14 @@
             <div class="levelEnd"></div>
         </script>
         
+        
         <script id="explanationTemplate" type="text/template">
             <div class="explanation <%= type %>"><%= message %></div>
         </script>
         
+        
         <script id="levelIndexTemplate" type="text/template">
-            <h1>Levels</h1>
+            <h1>Practice</h1>
             <ul id="levelIndex">
             </ul>
             <div class="gotoHome">&lt;&lt; Home</div>
@@ -60,9 +68,11 @@
             </div>
         </script>
         
+        
         <script id="levelInList" type="text/template">
             <li class="levelItem" data-level="<%= name %>"><span class="title"><%= level.title %></span><div class="average"><%= level.meanScore %></div><div class="best"><%= level.bestScore %></div></li>
         </script>
+        
         
         <script id="levelEndTemplate" type="text/template">
             <div class="endContainer">
@@ -77,6 +87,7 @@
             </div>
         </script>
         
+        
         <script id="comboEndTemplate" type="text/template">
             <div class="endContainer">
                 The END !
@@ -85,6 +96,21 @@
                 <br />
                 Your final score : <%= score %>
                 <div class="button back">Back</div>
+            </div>
+        </script>
+        
+        
+        <script id="scoresTemplate" type="text/template">
+            <h1>Scores</h1>
+            <ul id="scoresList">
+                <li><span class="name">You</span><div class="average"><%= yourScore.meanScore %></div><div class="best"><%= yourScore.bestScore %></div></li> 
+            </ul>
+            <div class="gotoHome">&lt;&lt; Home</div>
+            <div class="legend">
+                <div class="average"></div>
+                <div class="expl">average of your five last</div>
+                <div class="best"></div>
+                <div class="expl">your best</div>
             </div>
         </script>
         

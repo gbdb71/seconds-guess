@@ -95,7 +95,7 @@ h1, h2{
 }
 
 #home .button{
-  margin: 1em auto;
+  margin: 0.5em auto;
 }
 
 .gotoHome{
@@ -106,13 +106,19 @@ h1, h2{
   font-size: 0.8em;
 }
 
+
+
+#scores li,
 #levels li{
   text-align: left;
   float: left;
+  list-style-type: none;
+}
+
+#levels li{
   width: 35%;
   margin: 0 14% 0.5em 0;
   line-height: 1.9em;
-  list-style-type: none;
   cursor: pointer;
   border-radius: 1em;
   border: 1px solid transparent;
@@ -128,6 +134,8 @@ h1, h2{
   padding-left: 0.5em;
 }
 
+#scores .average,
+#scores .best,
 #levels .average,
 #levels .best{
   font-size: 0.8em;
@@ -141,11 +149,12 @@ h1, h2{
   text-align: center;
 }
 
-#levels .best{
+
+.best{
   background: #3782CE;
 }
 
-#levels .average{
+.average{
   background: #04182C;
 }
 
@@ -156,17 +165,34 @@ h1, h2{
   right: 0;
 }
 
-#levels .legend .expl{
+#levels .legend .expl,
+#scores .legend .expl{
   line-height: 1.5em;
   padding: 0 1em 0 0.3em;
 }
 
 #levels .legend .average,
 #levels .legend .best,
-#levels .legend .expl{
+#levels .legend .expl,
+#scores .legend .average,
+#scores .legend .best,
+#scores .legend .expl{
   float: left;
 }
 
+
+
+#scores li{
+  width: 90%;
+}
+
+#scores .average,
+#scores .best{
+  font-size: 0.5em;
+  width:       3em;
+  height:      3em;
+  line-height: 3em;
+}
 
 
 

@@ -16,6 +16,7 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
 
         
         this.$homeContainer         = container.find('#home');
+        this.$scoresContainer       = container.find('#scores');
         this.$levelsIndexContainer  = container.find('#levels');
         this.$comboEndContainer     = container.find('#comboEnd');
         
@@ -98,7 +99,11 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
         });
         
         $('.gotoLevels').click(function () {
-            eventBus.emit('ask index');
+            eventBus.emit('player wants index');
+        });
+        
+        $('.gotoScores').click(function () {
+            eventBus.emit('player wants scores');
         });
         
         $('.playCombo').click(function () {
@@ -145,11 +150,24 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
     };
     
     
+    ui.showScores = function (scores) {
+        this.$scoresContainer.html(_.template($('#scoresTemplate').html(), {
+            yourScore: scores
+        }));
+        
+        this.goTo('scores');
+    };
+    
+    
     
     ui.initEvents = function () {
 
         eventBus.on('show index', function (levels) {
             ui.loadLevelIndex(levels);
+        });
+        
+        eventBus.on('show scores', function (scores) {
+            ui.showScores(scores);
         });
 
         eventBus.on('level loaded', function (levelName, levelEventBus) {
