@@ -87,7 +87,12 @@
         
         
         <script id="levelInList" type="text/template">
-            <li class="levelItem" data-level="<%= name %>"><span class="title"><%= level.title %></span><div class="average"><%= level.meanScore %></div><div class="best"><%= level.bestScore %></div></li>
+            <li class="levelItem" data-level="<%= name %>"><span class="title"><%= level.title %></span>
+            <% if (showTimes) { %>
+                <div class="average"><%= level.meanTime %></div><div class="best"><%= level.bestTime %></div></li>
+            <% } else { %>
+                <div class="average"><%= level.meanScore %></div><div class="best"><%= level.bestScore %></div></li>
+            <% } %>
         </script>
         
         

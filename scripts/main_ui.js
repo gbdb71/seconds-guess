@@ -64,12 +64,27 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
     };
     
     
+    function getUrlParameter (name) {
+        name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+        var regexS = "[\\?&]" + name + "=([^&#]*)";
+        var regex = new RegExp(regexS);
+        var results = regex.exec(window.location.search);
+        if (results == null) {
+            return "";
+        } else {
+            return decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+    };
+    
     ui.loadLevelIndex = function (levels) {
+        
+        var showTimes = getUrlParameter('score') === 'time';
         this.$levelsIndexContainer.html(_.template($('#levelIndexTemplate').html()));
         _.each(levels, function (levelInfo, levelName) {
             $('#levelIndex').append(_.template($('#levelInList').html(), {
-                level:  levelInfo,
-                name:   levelName
+                level:      levelInfo,
+                name:       levelName,
+                showTimes:  showTimes
             }));
         });
         
