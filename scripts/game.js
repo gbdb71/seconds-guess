@@ -19,6 +19,9 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
         },
         'nothing': {
             title : 'No help'
+        },
+        'bad_music_good_numbers': {
+            title : 'Love numbers'
         }
     };
     

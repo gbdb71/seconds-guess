@@ -128,7 +128,7 @@ define(['underscore', 'jquery'], function (_, $) {
         
         eventBus.on('too late', function () {
             ui.chronoStopped = true;
-            ui.displayEnd('Bad timing - more than 15 seconds !', false, 0);
+            ui.displayEnd('Bad timing - more than 5 seconds late !', false, 0);
         });
         
         eventBus.on('resize', function () {
@@ -144,7 +144,7 @@ define(['underscore', 'jquery'], function (_, $) {
             }
             
             _.each(infos.instructions, function (instruction) {
-                ui.$explanations.html(_.template($('#explanationTemplate').html(), {
+                ui.$explanations.append(_.template($('#explanationTemplate').html(), {
                     type:    instruction[0],
                     message: instruction[1]
                 }));
