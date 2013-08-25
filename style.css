@@ -19,9 +19,9 @@ h1, h2{
 
 #game{
   position: relative;
-  height: 100%;
   margin: auto;
-  width: 800px;
+  width:  800px;
+  height: 600px;
 }
 
 
@@ -96,7 +96,7 @@ h1, h2{
   margin: auto;
 }
 
-.level .back{
+.levelStart .back{
   cursor: pointer;
   position: absolute;
   bottom: 0;
@@ -114,13 +114,14 @@ h1, h2{
   left:   0;
   width: 100%;
   text-align: center;
+  font-size: 0.8em;
 }
 
 .level .chrono .countdown{
   position: absolute;
   top: 30%;
   font-family: serif;
-  font-size: 155px;
+  font-size: 20px;
 }
 
 .level .chrono .countdown span{

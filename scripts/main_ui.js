@@ -18,10 +18,18 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
         
         this.associateLevelsWithScreens(levels);
         
+        var width  =  $(window).width()  * 0.9;
+        var height =  $(window).height() * 0.9;
+        
+        this.$container.attr('data-width', width).attr('data-height', height);
+        this.$container.css('font-size', Math.round(Math.min(width/30, height/10))+'px');
+        
+        
         $('.step').css({
-            width:  ($(window).width()  * 0.9)+'px',
-            height: ($(window).height() * 0.9)+'px'
+            width:  width+'px',
+            height: height+'px'
         });
+        
         this.loadBehaviours();
         
         this.impress = impress('game');
