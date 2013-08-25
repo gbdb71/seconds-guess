@@ -51,7 +51,8 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
         
         require(['levels/' + levelName], function (Level) {
             game.currentLevel = new Level(game.levelEventBus);
-            game.currentLevel.name = levelName;
+            game.currentLevel.name  = levelName;
+            game.currentLevel.title = levels[levelName].title;
             mainEventBus.emit('level loaded', levelName, game.levelEventBus);
         });
     };

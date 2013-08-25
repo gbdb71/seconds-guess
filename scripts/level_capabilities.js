@@ -6,7 +6,7 @@ define(function () { return function (level, eventBus) {
     
     
     eventBus.on('ui ready', function () {
-        eventBus.emit('display infos', level.instructions);
+        eventBus.emit('display infos', level.title, level.instructions);
     });
     
     eventBus.on('player ready', function () {

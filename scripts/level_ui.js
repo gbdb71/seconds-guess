@@ -40,8 +40,7 @@ define(['underscore', 'jquery'], function (_, $) {
         });
         
         this.$container.on('click', '.go', function () {
-            ui.$levelStart.hide();
-            eventBus.emit('player ready');
+            ui.playerReady();
         });
         
         eventBus.on('player action', function () {
@@ -50,10 +49,16 @@ define(['underscore', 'jquery'], function (_, $) {
             } else if (ui.chronoStarted) {
                 eventBus.emit('chrono stop');
             } else {
-                ui.$levelStart.hide();
-                eventBus.emit('player ready');
+                ui.playerReady();
             }
         });
+    };
+    
+    
+    LevelUI.prototype.playerReady = function () {
+        this.$levelStart.hide();
+        this.$infoBar.hide();
+        this.eventBus.emit('player ready');
     };
     
     
@@ -92,8 +97,8 @@ define(['underscore', 'jquery'], function (_, $) {
         });
         
         
-        eventBus.on('display infos', function (infos) {
-            ui.$infoBar.find('.message').html('My level');
+        eventBus.on('display infos', function (title, infos) {
+            ui.$infoBar.find('.message').html(title);
 
             _.each(infos, function (info) {
                 ui.$explanations.html(_.template($('#explanationTemplate').html(), {
@@ -118,6 +123,7 @@ define(['underscore', 'jquery'], function (_, $) {
     
     LevelUI.prototype.displayEnd = function (message, time, score) {
         this.$chronoContainer.hide();
+        this.$infoBar.show();
         this.$levelEnd.show().html(_.template($('#levelEndTemplate').html(), {
             message: message,
             time:  time,
