@@ -1,9 +1,10 @@
 define(['underscore', 'jquery'], function (_, $) {
     
     
-    var LevelUI = function (container, eventBus) {
+    var LevelUI = function (levelElemID, levelName, eventBus) {
         this.eventBus   = eventBus;
-        this.$container = container;
+        
+        this.initContainer(levelElemID, levelName);
         
         this.$infoBar         = this.$container.find('.infoBar');
         this.$content         = this.$container.find('.levelContent');
@@ -15,8 +16,7 @@ define(['underscore', 'jquery'], function (_, $) {
         this.$chronoMessage   = this.$chronoContainer.find('.message');
         this.$count           = this.$chronoContainer.find('.countdown');
         
-        
-        
+
         this.initEvents();
         this.initBehaviours();
         
@@ -24,6 +24,17 @@ define(['underscore', 'jquery'], function (_, $) {
         this.resize();
         
         eventBus.emit('ui ready');
+    };
+    
+    
+    LevelUI.prototype.initContainer = function (levelElemID, levelName) {
+        var parent = $('#'+levelElemID);
+        parent.html(_.template($('#levelTemplate').html()));
+        var template = $('#'+levelName+'Template').html();
+        if (template) {
+            parent.find('.levelContent').html(_.template($('#'+levelName+'Template').html()));
+        }
+        this.$container = parent.find('.wrapper');
     };
     
     
@@ -36,7 +47,11 @@ define(['underscore', 'jquery'], function (_, $) {
         var eventBus = this.eventBus;
         
         this.$container.on('click', '.back', function () {
-            eventBus.emit('close level');
+            eventBus.emit('back');
+        });
+        
+        this.$container.on('click', '.continue', function () {
+            eventBus.emit('continue');
         });
         
         this.$container.on('click', '.go', function () {
@@ -100,6 +115,7 @@ define(['underscore', 'jquery'], function (_, $) {
         eventBus.on('display infos', function (infos) {
             ui.$infoBar.find('.message').html(infos.title);
             if (infos.combo) {
+                ui.combo = infos.combo;
                 ui.$infoBar.find('.combo').html(infos.combo.index + ' / ' + infos.combo.total);
             }
             
@@ -130,9 +146,18 @@ define(['underscore', 'jquery'], function (_, $) {
         this.$levelEnd.show().html(_.template($('#levelEndTemplate').html(), {
             message: message,
             time:  time,
-            score: score
+            score: score,
+            combo: this.combo
         }));
         this.positionMessage(this.$levelEnd.find('.endContainer'));
+        
+        if (this.combo) {
+            this.$levelEnd.find('.prepare').hide().delay(1500).fadeIn(1500);
+            var eventBus = this.eventBus;
+            setTimeout(function () {
+                eventBus.emit('continue');
+            }, 3000);
+        }
     };
 
 

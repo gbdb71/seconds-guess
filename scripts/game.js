@@ -69,6 +69,10 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
         this.comboIndex = false;
     };
     
+    game.comboAbort = function () {
+        this.comboIndex = false;
+        mainEventBus.emit('combo aborted');
+    };
 
     game.loadLevel = function (levelName) {
         delete game.currentLevel;
@@ -84,7 +88,15 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
             }
         });
         
-        game.levelEventBus.on('close level', function () {
+        game.levelEventBus.on('back', function () {
+            if (game.comboIndex) {
+                game.comboAbort();
+            } else {
+                mainEventBus.emit('show index', levels);
+            }
+        });
+        
+        game.levelEventBus.on('continue', function () {
             if (game.comboIndex) {
                 game.comboNext();
             } else {

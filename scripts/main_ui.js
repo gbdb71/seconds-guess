@@ -116,21 +116,14 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
     };
     
     
+    
     ui.loadLevel = function (levelName, levelEventBus) {
         var levelElemID = levelToScreen[levelName];
-        this.$levelContainer = $('#'+levelElemID);
 
-        this.$levelContainer.html(_.template($('#levelTemplate').html()));
+        this.levelEventBus = levelEventBus;
+        new LevelUI(levelElemID, levelName, levelEventBus);
         
         this.goTo(levelElemID);
-        
-        var template = $('#'+levelName+'Template').html();
-        if (template) {
-            this.$levelContainer.find('.levelContent').html(_.template($('#'+levelName+'Template').html()));
-        }
-        
-        this.levelEventBus = levelEventBus;
-        new LevelUI(this.$levelContainer, levelEventBus);
     };
     
     
@@ -176,6 +169,10 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
         
         eventBus.on('combo end', function (score, time) {
             ui.showComboEnd(score, time);
+        });
+        
+        eventBus.on('combo aborted', function (score, time) {
+            ui.goTo('home');
         });
         
     };

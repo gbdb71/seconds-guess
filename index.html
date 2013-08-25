@@ -33,20 +33,22 @@
         
         
         <script id="levelTemplate" type="text/template">
-            <div class="infoBar"><span class="message"></span> <div class="combo"></div></div>
-            <div class="levelContent"></div>
-            <div class="chrono">
-                <div class="message">Click, tap, or press 'space' precisely after 10 seconds</div>
-                <div class="countdown"></div>
-            </div>
-            <div class="levelStart">
-                <div class="infosContainer">
-                    <div class="explanations"></div>
-                    <div class="go button">Go !</div>
+            <div class="wrapper">
+                <div class="infoBar"><span class="message"></span> <div class="combo"></div></div>
+                <div class="levelContent"></div>
+                <div class="chrono">
+                    <div class="message">Click, tap, or press 'space' precisely after 10 seconds</div>
+                    <div class="countdown"></div>
                 </div>
-                <div class="back">&lt;&lt; Back</div>
+                <div class="levelStart">
+                    <div class="infosContainer">
+                        <div class="explanations"></div>
+                        <div class="go button">Go !</div>
+                    </div>
+                    <div class="back">&lt;&lt; Exit</div>
+                </div>
+                <div class="levelEnd"></div>
             </div>
-            <div class="levelEnd"></div>
         </script>
         
         
@@ -83,7 +85,11 @@
                     <br />
                 <% } %>
                 Your score : <%= score %>
-                <div class="button back">Back</div>
+                <% if (!combo) { %>
+                    <div class="button continue">Back to practice</div>
+                <% } else if (combo.index < combo.total) { %>
+                    <div class="prepare">Prepare for next level...</div>
+                <% } %>
             </div>
         </script>
         
@@ -95,7 +101,7 @@
                 Time errors total : <%= time %> ms
                 <br />
                 Your final score : <%= score %>
-                <div class="button back">Back</div>
+                <div class="gotoHome">&lt;&lt; Home</div>
             </div>
         </script>
         
