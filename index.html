@@ -56,12 +56,16 @@
         </script>
         
         <script id="levelEndTemplate" type="text/template">
-            <%= message %>
-            <br />
-            <%= time %> ms
-            <br />
-            Your score : <%= score %>
-            <div class="button back">Back</div>
+            <div class="endContainer">
+                <%= message %>
+                <br />
+                <% if (time !== false) { %>
+                    <%= time %> ms
+                    <br />
+                <% } %>
+                Your score : <%= score %>
+                <div class="button back">Back</div>
+            </div>
         </script>
         
         <script id="testTemplate" type="text/template">

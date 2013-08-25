@@ -84,7 +84,7 @@ define(['underscore', 'jquery'], function (_, $) {
         
         eventBus.on('too late', function () {
             ui.chronoStopped = true;
-            ui.displayEnd('Bad timing - more than 15 seconds !', '', 0);
+            ui.displayEnd('Bad timing - more than 15 seconds !', false, 0);
         });
         
         eventBus.on('resize', function () {
@@ -102,13 +102,16 @@ define(['underscore', 'jquery'], function (_, $) {
                 }));
             });
             
-            var $cont = ui.$container.find('.infosContainer');
-            $cont.css({
-                'margin-top':   (0.4 * (ui.$container.height() - $cont.height()))+'px'
-            });
-            
+            ui.positionMessage(ui.$container.find('.infosContainer'));
             ui.$container.find('.chrono .countdown').css('font-size', (ui.$container.width()/9.3) + 'px');
-            
+        });
+        
+    };
+    
+    
+    LevelUI.prototype.positionMessage = function ($elem) {
+        $elem.css({
+            'margin-top': (0.4 * (this.$container.height() - $elem.height()))+'px'
         });
     };
     
@@ -120,6 +123,7 @@ define(['underscore', 'jquery'], function (_, $) {
             time:  time,
             score: score
         }));
+        this.positionMessage(this.$levelEnd.find('.endContainer'));
     };
 
 
