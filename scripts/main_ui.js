@@ -57,7 +57,7 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
     ui.associateLevelsWithScreens = function (levels) {
         var i = 0;
         _.each(levels, function (levelInfo, levelName) {
-            levelToScreen[levelName] = 'levelScreen_'+(i%2);
+            levelToScreen[levelName] = 'levelScreen_'+(i%4);
             i += 1;
         });
     };
