@@ -25,10 +25,11 @@
                 <div class="button gotoLevels">Practice</div>
                 <div class="button gotoScores">Scores</div>
             </div>
-            <div id="levels" class="main step" data-x="-1500" data-y="0"></div>
-            <div id="scores" class="main step" data-x="-1500" data-y="3000"></div>
-            <div id="comboEnd" class="main step" data-x="-1500" data-y="1500"></div>
-            <div id="levelScreen_1" class="step level" data-x="-1500" data-y="-1500"></div>
+            <div id="levels" class="main step" data-x="800" data-y="400" data-rotate="30"></div>
+            <div id="scores" class="main step" data-x="-1300" data-y="300" data-rotate="-90" data-scale="2"></div>
+            <div id="comboEnd" class="main step" data-x="-300" data-y="1500"></div>
+            <div id="levelScreen_0" class="step level" data-x="400" data-y="-300" data-rotate="50" data-scale="0.1"></div>
+            <div id="levelScreen_1" class="step level" data-x="600" data-y="-200" data-rotate="-30" data-scale="0.2"></div>
         </script>
         
         
@@ -85,8 +86,8 @@
                 <% } %>
                 Score : <%= score %>
                 <% if (time !== false) { %>
-                    <%= Math.abs(time) %> ms too <%= time > 0 ? 'early' : 'late' %>
                     <br />
+                    <%= Math.abs(time) %> ms too <%= time > 0 ? 'early' : 'late' %>
                 <% } %>
                 <% if (!combo) { %>
                     <div class="button continue">Back to practice</div>
@@ -99,11 +100,11 @@
         
         <script id="comboEndTemplate" type="text/template">
             <div class="endContainer">
-                The END !
+                END of COMBO !
                 <br />
-                Time errors total : <%= time %> ms
+                Total score : <%= score %>
                 <br />
-                Your final score : <%= score %>
+                Total errors : <%= time %> ms
                 <div class="gotoHome">&lt;&lt; Home</div>
             </div>
         </script>

@@ -204,6 +204,17 @@ h1, h2{
 }
 
 
+.step{
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 1s;
+}
+
+.step.active{
+  z-index: 5;
+  opacity: 1;
+  transition: opacity 1s;
+}
 
 .level{
   position: relative;
@@ -229,7 +240,7 @@ h1, h2{
   cursor: pointer;
   position: absolute;
   bottom: 0;
-  left:   1em;
+  padding: 1.5em 1em 0 1em;
 }
 
 
