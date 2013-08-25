@@ -27,7 +27,7 @@
         </script>
         
         <script id="levelTemplate" type="text/template">
-            <div class="infoBar">Seconds-Guess - <span class="message"></span> <div class="combo"></div></div>
+            <div class="infoBar"><span class="message"></span> <div class="combo"></div></div>
             <div class="levelContent"></div>
             <div class="chrono">
                 <div class="message">Click, tap, or press 'space' precisely after 10 seconds</div>
@@ -55,7 +55,7 @@
         </script>
         
         <script id="levelInList" type="text/template">
-            <li class="levelItem button" data-level="<%= name %>"><%= level.title %><br>average : <%= level.meanScore %><br>best : <%= level.bestScore %></li>
+            <li class="levelItem" data-level="<%= name %>"><span class="title"><%= level.title %></span><div class="average"><%= level.meanScore %></div><div class="best"><%= level.bestScore %></div></li>
         </script>
         
         <script id="levelEndTemplate" type="text/template">

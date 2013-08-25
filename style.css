@@ -83,21 +83,52 @@ h1, h2{
   clear: both;
 }
 
-
+#levelIndex{
+  font-size: 0.7em;
+}
 
 #levelIndex li{
+  text-align: left;
   float: left;
-  width: 10em;
-  margin: 2% 5%;
+  width: 35%;
+  margin: 0 14% 0.5em 0;
   list-style-type: none;
+  cursor: pointer;
+  border-radius: 1em;
+  text-shadow: 0 0 0 rgba(255, 255, 255, 0.8);
+  transition: text-shadow 0.2s;
+}
+
+#levelIndex li .title{
+  padding-left: 0.5em;
+}
+
+#levelIndex li .average,
+#levelIndex li .best{
+  float: right;
+  border: 1px solid #FFF;
+  margin-left: 0.5em;
+  border-radius: 50%;
+  width:       1.7em;
+  height:      1.7em;
+  line-height: 1.7em;
+  text-align: center;
+}
+
+#levelIndex li .best{
+  background: #3782CE;
+}
+
+#levelIndex li .average{
+  background: #04182C;
 }
 
 
-
-
-
-
-
+#levelIndex li:hover{
+  background: #355772;
+  text-shadow: 0 0 1em rgba(255, 255, 255, 0.8);
+  transition: text-shadow 0.3s;
+}
 
 
 

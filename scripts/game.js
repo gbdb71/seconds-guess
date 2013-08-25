@@ -126,7 +126,7 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
         storage.scores = storage.scores || [];
         storage.scores.push(score);    
     
-        lastScores = _.last(storage.scores, 10);
+        lastScores = _.last(storage.scores, 5);
         storage.meanScore = Math.round(_.reduce(lastScores, function(memo, num){ return memo + num; }, 0) / lastScores.length);
         
         storage.bestScore = Math.max(storage.bestScore || 0, score);
@@ -136,7 +136,7 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
         storage.times = storage.times || [];
         storage.times.push(time);    
     
-        lastTimes = _.last(storage.times, 10);
+        lastTimes = _.last(storage.times, 5);
         storage.meanTime = Math.round(_.reduce(lastTimes, function(memo, num){ return memo + num; }, 0) / lastTimes.length);
         
         storage.bestTime = Math.max(storage.bestTime || 0, time);
