@@ -51,7 +51,7 @@ h1, h2{
 }
 
 .button:hover{
-  background: #346;
+  background: #355772;
 }
 
 
@@ -70,12 +70,32 @@ h1, h2{
 }
 
 
+#levelIndex li,
+.gotoHome,
+.back,
+.button{
+  text-shadow: 0 0 0 rgba(255, 255, 255, 0.8);
+  transition: text-shadow 0.2s;
+}
+
+#levelIndex li:hover,
+.gotoHome:hover,
+.back:hover,
+.button:hover{
+  text-shadow: 0 0 1em rgba(255, 255, 255, 0.8);
+  transition: text-shadow 0.3s;
+}
 
 
 #home .button,
 .level .button{
+  padding: 0.5em;
   width: 10em;
   margin: 0.5em auto;
+}
+
+#home .button{
+  margin: 1em auto;
 }
 
 .gotoHome{
@@ -86,7 +106,7 @@ h1, h2{
   font-size: 0.8em;
 }
 
-#levelIndex li{
+#levels li{
   text-align: left;
   float: left;
   width: 35%;
@@ -95,16 +115,21 @@ h1, h2{
   list-style-type: none;
   cursor: pointer;
   border-radius: 1em;
-  text-shadow: 0 0 0 rgba(255, 255, 255, 0.8);
-  transition: text-shadow 0.2s;
+  border: 1px solid transparent;
 }
 
-#levelIndex li .title{
+#levels li:hover{
+  background: #355772;
+  border: 1px solid #FFF;
+}
+
+
+#levels li .title{
   padding-left: 0.5em;
 }
 
-#levelIndex li .average,
-#levelIndex li .best{
+#levels .average,
+#levels .best{
   font-size: 0.8em;
   float: right;
   border: 1px solid #FFF;
@@ -116,19 +141,30 @@ h1, h2{
   text-align: center;
 }
 
-#levelIndex li .best{
+#levels .best{
   background: #3782CE;
 }
 
-#levelIndex li .average{
+#levels .average{
   background: #04182C;
 }
 
+.legend{
+  font-size: 0.5em;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
 
-#levelIndex li:hover{
-  background: #355772;
-  text-shadow: 0 0 1em rgba(255, 255, 255, 0.8);
-  transition: text-shadow 0.3s;
+#levels .legend .expl{
+  line-height: 1.5em;
+  padding: 0 1em 0 0.3em;
+}
+
+#levels .legend .average,
+#levels .legend .best,
+#levels .legend .expl{
+  float: left;
 }
 
 
