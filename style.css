@@ -3,7 +3,7 @@ html, body{
   margin: 0;
   padding: 0;
   color: #FFF;
-  font-family: 'The Girl Next Door', cursive;
+  font-family: 'Kranky', serif;
   font-size: 30px;
 }
 
@@ -73,8 +73,7 @@ h1, h2{
 
 
 #home .button,
-.level .button,
-.gotoHome{
+.level .button{
   width: 10em;
   margin: 0.5em auto;
 }
@@ -84,7 +83,7 @@ h1, h2{
 }
 
 #levelIndex{
-  font-size: 0.7em;
+  font-size: 0.8em;
 }
 
 #levelIndex li{
@@ -92,6 +91,7 @@ h1, h2{
   float: left;
   width: 35%;
   margin: 0 14% 0.5em 0;
+  line-height: 1.9em;
   list-style-type: none;
   cursor: pointer;
   border-radius: 1em;
@@ -105,13 +105,14 @@ h1, h2{
 
 #levelIndex li .average,
 #levelIndex li .best{
+  font-size: 0.8em;
   float: right;
   border: 1px solid #FFF;
   margin-left: 0.5em;
   border-radius: 50%;
-  width:       1.7em;
-  height:      1.7em;
-  line-height: 1.7em;
+  width:       2.3em;
+  height:      2.3em;
+  line-height: 2.3em;
   text-align: center;
 }
 
@@ -143,12 +144,15 @@ h1, h2{
   margin: auto;
 }
 
-.levelStart .back{
+.levelStart .back, 
+.gotoHome{
   cursor: pointer;
   position: absolute;
   bottom: 0;
-  left:   0;
+  left:   1em;
 }
+
+
 
 
 .level .explanations{

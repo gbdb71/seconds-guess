@@ -25,7 +25,7 @@ define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress,
         var height =  $(window).height() * 0.9;
         
         this.$container.attr('data-width', width).attr('data-height', height);
-        this.$container.css('font-size', Math.round(Math.min(width/30, height/10))+'px');
+        this.$container.css('font-size', Math.round(Math.min(width/26, height/8))+'px');
         
         
         $('.step').css({
