@@ -3,6 +3,7 @@ define(['../level_capabilities'], function (addLevelCapabilities) {
     var Level = function (params) {
         addLevelCapabilities(this, params);
         this.initEvents();
+        this.badNumbers = true;
         
         this.instructions = [
             ['bad', 'DON \' T trust the numbers !']
@@ -21,7 +22,7 @@ define(['../level_capabilities'], function (addLevelCapabilities) {
     
     
     Level.prototype.setScore = function () {
-        this.score = this.classicScore(500);
+        this.score = this.classicScore(1200);
     };
     
     Level.prototype.emitFake = function (seconds) {

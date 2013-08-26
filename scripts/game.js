@@ -8,9 +8,6 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
     addEventCapabilities(mainEventBus, 'Game');
     
     var levels = {
-        'numbers_all': {
-            title : 'Easy'
-        },
         'music_numbers_all': {
             title : 'Easy in music'
         },
@@ -21,13 +18,19 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
             title : 'No help'
         },
         'bad_music_good_numbers': {
-            title : 'Love numbers'
+            title : 'Love digits'
         },
         'only_bad_music': {
             title : 'Only bad music'
         },
         'evil_numbers': {
             title : 'Evil numbers'
+        },
+        '90_bpm': {
+            title : 'For musicians'
+        },
+        'mess': {
+            title : "It's a mess"
         }
     };
     
@@ -123,6 +126,10 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
             }
         });
         
+        game.levelEventBus.on('replay', function () {
+            game.loadLevel(levelName);
+        });
+        
         require(['levels/' + levelName], function (Level) {
             game.currentLevel = new Level({
                 name:       levelName,
@@ -195,7 +202,7 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
         if (lastTimes.length >= 5) {
             storage.meanTime = Math.round(_.reduce(lastTimes, function(memo, num){ return memo + num; }, 0) / lastTimes.length);
         }
-        storage.bestTime = Math.min(storage.bestTime || 0, time);
+        storage.bestTime = Math.min(storage.bestTime || time, time);
         
         
         localStorage[key] = JSON.stringify(storage);

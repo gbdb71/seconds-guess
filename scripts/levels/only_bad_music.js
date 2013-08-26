@@ -17,7 +17,7 @@ define(['../level_capabilities', 'Howler'], function (addLevelCapabilities, howl
             level.sound.play();
             setTimeout(function () {
                 level.chronoStart();
-            }, 2000);
+            }, 3000);
         }, Math.random()*1000); 
     };
     
@@ -32,7 +32,10 @@ define(['../level_capabilities', 'Howler'], function (addLevelCapabilities, howl
         var eventBus = this.eventBus;
         
         eventBus.on('chrono started', function () {
-            eventBus.emit('countdown', 10);
+            var seconds = level.countNextSecond(8);
+            if (seconds < 10) {
+                eventBus.emit('countdown', 10);
+            }
         });
         
         eventBus.on('ui ready', function () {
@@ -40,7 +43,7 @@ define(['../level_capabilities', 'Howler'], function (addLevelCapabilities, howl
             
             level.sound = new howler.Howl({
                 loop: true,
-                urls: ['sounds/sample01_slowed.ogg'],
+                urls: ['sounds/sample02_fast.ogg'],
                 onload: function () {
                     eventBus.emit('loading complete');
                 }

@@ -5,8 +5,7 @@ define(['../level_capabilities', 'Howler'], function (addLevelCapabilities, howl
         this.initEvents();
         
         this.instructions = [
-            ['good', 'Trust the numbers'],
-            ['good', 'Trust the music']
+            ['good', 'Tricky, but trust the BASS !']
         ];
         
     };
@@ -18,13 +17,13 @@ define(['../level_capabilities', 'Howler'], function (addLevelCapabilities, howl
             level.sound.play();
             setTimeout(function () {
                 level.chronoStart();
-            }, 2020);
-        }, Math.random()*1000 + 500); 
+            }, 5333);
+        }, Math.random()*1000); 
     };
     
     
     Level.prototype.setScore = function () {
-        this.score = this.classicScore(100);
+        this.score = this.classicScore(500);
     };
     
     
@@ -33,7 +32,7 @@ define(['../level_capabilities', 'Howler'], function (addLevelCapabilities, howl
         var eventBus = this.eventBus;
         
         eventBus.on('chrono started', function () {
-            var seconds = level.countNextSecond(0);
+            var seconds = level.countNextSecond(8);
             if (seconds < 10) {
                 eventBus.emit('countdown', 10);
             }
@@ -44,7 +43,7 @@ define(['../level_capabilities', 'Howler'], function (addLevelCapabilities, howl
             
             level.sound = new howler.Howl({
                 loop: true,
-                urls: ['sounds/sample02.ogg'],
+                urls: ['sounds/sample03.ogg'],
                 onload: function () {
                     eventBus.emit('loading complete');
                 }

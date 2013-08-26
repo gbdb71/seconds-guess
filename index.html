@@ -32,7 +32,9 @@
                     Can you have perfect timing ?
                 </div>
                 <div class="button play">Enter the game !</div>
-                <div class="please">Please play fair : don't close your eyes, don't mute the volume...</div>
+                <div class="expl2">
+                    ( make sure your speakers are turned on )
+                </div>
             </div>
             <div id="levels" class="main step" data-x="800" data-y="400" data-rotate="30"></div>
             <div id="scores" class="main step" data-x="-1300" data-y="300" data-rotate="-90" data-scale="2"></div>
@@ -59,6 +61,7 @@
                         <div class="explanations"></div>
                         <div class="loading">Loading sounds...</div>
                         <div class="go button">Go !</div>
+                        <div class="please">Please play fair : don't close your eyes,<br> don't mute the volume...</div>
                     </div>
                     <div class="back">&lt;&lt; Exit</div>
                 </div>
@@ -105,9 +108,10 @@
                 Score : <%= score %>
                 <% if (time !== false) { %>
                     <br />
-                    <%= Math.abs(time) %> ms too <%= time > 0 ? 'early' : 'late' %>
+                    <span class="timeResult"><%= Math.abs(time) %> ms too <%= time > 0 ? 'early' : 'late' %></span>
                 <% } %>
                 <% if (!combo) { %>
+                    <div class="button replay">Replay</div>
                     <div class="button continue">Back to practice</div>
                 <% } else if (combo.index < combo.total) { %>
                     <div class="prepare">Prepare for next level...</div>
@@ -122,7 +126,7 @@
                 <br />
                 Total score : <%= score %>
                 <br />
-                Total errors : <%= time %> ms
+                <span class="timeResult">Total errors : <%= time %> ms</span>
                 <div class="gotoHome">&lt;&lt; Home</div>
             </div>
         </script>

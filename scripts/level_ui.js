@@ -55,6 +55,10 @@ define(['underscore', 'jquery'], function (_, $) {
             eventBus.emit('continue');
         });
         
+        this.$container.on('click', '.replay', function () {
+            eventBus.emit('replay');
+        });
+        
         this.$container.on('click', '.go', function () {
             ui.playerReady();
         });
@@ -138,12 +142,20 @@ define(['underscore', 'jquery'], function (_, $) {
         
         eventBus.on('display infos', function (infos) {
             ui.$infoBar.find('.message').html(infos.title);
+            
             if (infos.combo) {
                 ui.combo = infos.combo;
                 ui.$infoBar.find('.combo').html(infos.combo.index + ' / ' + infos.combo.total);
             }
             
+            if (infos.badNumbers) {
+                ui.$container.addClass('badNumbers');
+            }
+            
             _.each(infos.instructions, function (instruction) {
+                if (instruction[0] === 'bad') {
+                    ui.$container.find('.please').show();
+                }
                 ui.$explanations.append(_.template($('#explanationTemplate').html(), {
                     type:    instruction[0],
                     message: instruction[1]

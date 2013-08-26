@@ -1,9 +1,20 @@
-define(['underscore', 'jquery', 'impress', 'level_ui'], function (_, $, impress, LevelUI) {
+define(['underscore', 'jquery', 'impress', 'level_ui', 'Howler'], function (_, $, impress, LevelUI, howler) {
     
     var ui = {};
 
     var eventBus;
     var levelToScreen = {};
+    
+    
+    /*var bip1 = new howler.Howl({
+        volume: 0.2,
+        urls: ['sounds/click01.ogg']
+    });
+    
+    var bip2 = new howler.Howl({
+        volume: 0.2,
+        urls: ['sounds/click02.ogg']
+    });*/
 
     
     ui.init = function (container, _eventBus, levels) {

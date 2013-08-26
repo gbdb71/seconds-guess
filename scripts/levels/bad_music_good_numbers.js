@@ -24,7 +24,7 @@ define(['../level_capabilities', 'Howler'], function (addLevelCapabilities, howl
     
     
     Level.prototype.setScore = function () {
-        this.score = this.classicScore(500);
+        this.score = this.classicScore(300);
     };
     
     

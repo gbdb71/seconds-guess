@@ -21,7 +21,7 @@ define(['../level_capabilities'], function (addLevelCapabilities) {
     
     
     Level.prototype.setScore = function () {
-        this.score = this.classicScore(700);
+        this.score = this.classicScore(1100);
     };
     
     

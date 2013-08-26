@@ -14,7 +14,8 @@ define(function () { return function (level, params) {
         eventBus.emit('display infos', {
             title:          level.title,
             combo:          level.combo,
-            instructions:   level.instructions
+            instructions:   level.instructions,
+            badNumbers:     level.badNumbers
         });
     });
     
@@ -30,6 +31,9 @@ define(function () { return function (level, params) {
         eventBus.emit('stop all');
     });
     
+    eventBus.on('replay', function () {
+        eventBus.emit('stop all');
+    });
     
     eventBus.on('back', function () {
         eventBus.emit('stop all');
