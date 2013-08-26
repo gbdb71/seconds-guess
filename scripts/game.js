@@ -51,12 +51,30 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
     });
     
     mainEventBus.on('player wants scores', function () {
-        mainEventBus.emit('show scores', game.comboScores);
+        $.getJSON('/seconds_guess/scores.json?around='+game.comboScores.bestScore, function(data) {
+            mainEventBus.emit('show scores', game.comboScores, data);
+        });
     });
     
     mainEventBus.on('play combo', function () {
         game.initCombo();
     });
+    
+    mainEventBus.on('submit score', function (nickname) {
+        if (localStorage) {
+            localStorage[storageKey + '_nickname'] = nickname;
+        }
+        
+        $.post("/seconds_guess/scores", {
+            nickname:  nickname,
+            bestScore: game.comboScores.bestScore,
+            bestTime:  game.comboScores.bestTime,
+            meanScore: game.comboScores.meanScore,
+            meanTime:  game.comboScores.meanTime
+        });
+    });
+    
+    
     
     
     game.initCombo = function () {
@@ -81,7 +99,11 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
     
     game.comboEnd = function () {
         game.recordScore('combo', this.comboTime, this.comboScore);
-        mainEventBus.emit('combo end', this.comboScore, this.comboTime);
+        var nickname = '';
+        if (localStorage) {
+            nickname = localStorage[storageKey + '_nickname'];
+        }
+        mainEventBus.emit('combo end', this.comboScore, this.comboTime, nickname);
         this.comboIndex = false;
     };
     
@@ -158,8 +180,7 @@ define(['underscore', 'add_event_capabilities', 'main_ui'], function (_, addEven
                 
             }
         });
-        
-        
+
         
         try {
             this.comboScores = JSON.parse(localStorage[storageKey + '_combo'] || '{}');

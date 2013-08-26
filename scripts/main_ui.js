@@ -164,10 +164,11 @@ define(['underscore', 'jquery', 'impress', 'level_ui', 'Howler'], function (_, $
     
     
     
-    ui.showComboEnd = function (score, time) {
+    ui.showComboEnd = function (score, time, nickname) {
         this.$comboEndContainer.html(_.template($('#comboEndTemplate').html(), {
-            score: score,
-            time: time
+            score:      score,
+            time:       time,
+            nickname:   nickname
         }));
         
         var $cont = this.$comboEndContainer.find('.endContainer');
@@ -175,13 +176,19 @@ define(['underscore', 'jquery', 'impress', 'level_ui', 'Howler'], function (_, $
             'margin-top': (0.4 * (this.$comboEndContainer.height() - $cont.height()))+'px'
         });
         
+        $('.sendScore').click(function () {
+            $('.submit').fadeOut(500);
+            eventBus.emit('submit score', $('.submit input').val());
+        });
+        
         this.goTo('comboEnd');
     };
     
     
-    ui.showScores = function (scores) {
+    ui.showScores = function (yours, others) {
         this.$scoresContainer.html(_.template($('#scoresTemplate').html(), {
-            yourScore: scores
+            yourScore: yours,
+            others: others
         }));
         
         this.goTo('scores');
@@ -195,8 +202,8 @@ define(['underscore', 'jquery', 'impress', 'level_ui', 'Howler'], function (_, $
             ui.loadLevelIndex(levels);
         });
         
-        eventBus.on('show scores', function (scores) {
-            ui.showScores(scores);
+        eventBus.on('show scores', function (yours, data) {
+            ui.showScores(yours, data);
         });
 
         eventBus.on('level loaded', function (levelName, levelEventBus) {
@@ -207,8 +214,8 @@ define(['underscore', 'jquery', 'impress', 'level_ui', 'Howler'], function (_, $
             delete ui.levelEventBus;
         });
         
-        eventBus.on('combo end', function (score, time) {
-            ui.showComboEnd(score, time);
+        eventBus.on('combo end', function (score, time, nickname) {
+            ui.showComboEnd(score, time, nickname);
         });
         
         eventBus.on('combo aborted', function (score, time) {

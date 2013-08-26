@@ -82,9 +82,9 @@
             <div class="gotoHome">&lt;&lt; Home</div>
             <div class="legend">
                 <div class="average"></div>
-                <div class="expl">average of your five last</div>
+                <div class="expl">five last scores average</div>
                 <div class="best"></div>
-                <div class="expl">your best</div>
+                <div class="expl">your best score</div>
             </div>
         </script>
         
@@ -128,21 +128,28 @@
                 <br />
                 <span class="timeResult">Total errors : <%= time %> ms</span>
                 <div class="gotoHome">&lt;&lt; Home</div>
+                <div class="submit">
+                    <input type="text" id="nickname" name="nickname" value="<%= nickname %>" placeholder="Nickname">
+                    <span class="sendScore">Submit</span>
+                </div>
             </div>
         </script>
         
         
         <script id="scoresTemplate" type="text/template">
-            <h1>Scores</h1>
+            <h1>Combo Scores</h1>
             <ul id="scoresList">
-                <li><span class="name">You</span><div class="average"><%= yourScore.meanScore %></div><div class="best"><%= yourScore.bestScore %></div></li> 
+                <li><span class="name">You</span><div class="average"><%= yourScore.meanScore %></div><div class="best"><%= yourScore.bestScore %></div></li>
+                <% for (var i=0; i < others.length; i++) { %>
+                    <li><span class="position"><%= others[i].position %></span> - <span class="name"><%= others[i].nickname %></span><div class="average"><%= others[i].average %></div><div class="best"><%= others[i].best %></div></li>
+                <% }; %>
             </ul>
             <div class="gotoHome">&lt;&lt; Home</div>
             <div class="legend">
                 <div class="average"></div>
-                <div class="expl">average of your five last</div>
+                <div class="expl">average of five last</div>
                 <div class="best"></div>
-                <div class="expl">your best</div>
+                <div class="expl">best</div>
             </div>
         </script>
         

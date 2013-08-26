@@ -101,7 +101,8 @@ h1, h2{
 .back,
 .continue,
 .replay,
-.button{
+.button,
+.sendScore{
   text-shadow: 0 0 0 rgba(255, 255, 255, 0.8);
   transition: text-shadow 0.2s;
 }
@@ -111,7 +112,8 @@ h1, h2{
 .back:hover,
 .continue:hover,
 .replay:hover,
-.button:hover{
+.button:hover,
+.sendScore:hover{
   text-shadow: 0 0 1em rgba(255, 255, 255, 0.8);
   transition: text-shadow 0.3s;
 }
@@ -214,15 +216,17 @@ h1, h2{
 
 
 #scores li{
+  font-size: 0.9em;
+  padding-bottom: 0.1em;
   width: 90%;
 }
 
 #scores .average,
 #scores .best{
   font-size: 0.5em;
-  width:       3em;
-  height:      3em;
-  line-height: 3em;
+  width:       2.3em;
+  height:      2.3em;
+  line-height: 2.3em;
 }
 
 
@@ -344,4 +348,21 @@ h1, h2{
 .prepare{
   font-size: 0.6em;
   margin-top: 0.7em;
+}
+
+
+.submit{
+  border-top: 1px solid #FFF;
+  width: 10em;
+  margin: 0.5em auto 0 auto;
+}
+
+.submit input{
+  font-size: 0.5em;
+}
+
+.sendScore{
+  padding-left: 0.5em;
+  cursor: pointer;
+  font-size: 0.8em;
 }
